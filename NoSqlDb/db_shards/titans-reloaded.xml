@@ -1,0 +1,82 @@
+
+  <shard name="The New Titans">
+    <record>
+      <key>
+        poseidon
+      </key>
+      <value>
+        <metadata>
+          <name>
+            Poseidon
+          </name>
+          <description>
+            God of the Sea
+          </description>
+          <datetime>
+            Tue Feb  6 02:32:54 2018
+          </datetime>
+        </metadata>
+        <payload>
+          Lives in the Sea
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        leto
+      </key>
+      <value>
+        <metadata>
+          <name>
+            Leto
+          </name>
+          <description>
+            Goddess of Motherhood
+          </description>
+          <datetime>
+            Tue Feb  6 02:32:54 2018
+          </datetime>
+          <relationships>
+            <childkey>
+              apollo
+            </childkey>
+            <childkey>
+              artemis
+            </childkey>
+          </relationships>
+        </metadata>
+        <payload>
+          Lives at Delos
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        kronos
+      </key>
+      <value>
+        <metadata>
+          <name>
+            Kronos
+          </name>
+          <description>
+            Youngest Titan
+          </description>
+          <datetime>
+            Tue Feb  6 02:47:10 2018
+          </datetime>
+          <relationships>
+            <childkey>
+              zeus
+            </childkey>
+            <childkey>
+              poseidon
+            </childkey>
+          </relationships>
+        </metadata>
+        <payload>
+          Lives at Mount Othrys
+        </payload>
+      </value>
+    </record>
+  </shard>

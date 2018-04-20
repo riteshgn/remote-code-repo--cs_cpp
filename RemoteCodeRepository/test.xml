@@ -1,0 +1,29 @@
+
+  <shard name="New Shard">
+    <record>
+      <key>
+        key2
+      </key>
+      <value>
+        <metadata>
+          <name>
+            key2
+          </name>
+          <description>
+            key2
+          </description>
+          <datetime>
+            Thu Apr 19 22:22:28 2018
+          </datetime>
+          <relationships>
+            <childkey>
+              key1
+            </childkey>
+          </relationships>
+        </metadata>
+        <payload>
+          key2-p
+        </payload>
+      </value>
+    </record>
+  </shard>
