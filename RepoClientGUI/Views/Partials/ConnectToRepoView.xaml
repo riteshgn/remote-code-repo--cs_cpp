@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="RepoClientGUI.Views.Partials.ConnectToRepoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RepoClientGUI.Views.Partials"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="ConnectToRepoView_Loaded">
+    <Grid Width="556">
+        <Grid.RowDefinitions>
+            <!-- ROW 0 : Title -->
+            <RowDefinition Height="Auto" />
+            <!-- ROW 1 : Server Endpoint -->
+            <RowDefinition Height="Auto" />
+            <!-- ROW 2 : User Id -->
+            <RowDefinition Height="Auto" />
+            <!-- ROW 3 : Submit -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="106"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ROW 0 : Title -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   Style="{StaticResource titleStyle}" 
+                   Margin="20">Login to Remote Repository</TextBlock>
+        <!-- /ROW 0 : Title -->
+
+        <!-- ROW 1 : Server Endpoint -->
+        <TextBlock Grid.Row="1" Grid.Column="0" 
+                   Style="{StaticResource smallTitleStyle}" 
+                   Margin="0,5,0,5">Server address</TextBlock>
+        <TextBox Name="ServerAddressTextBox" Grid.Row="1" Grid.Column="1"
+                 Text="{Binding Path=ServerConnProps.ServerAddress, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource regTextBoxStyle}"
+                 HorizontalAlignment="Left"
+                 Margin="25,5,0,5"/>
+        <TextBox Name="ServerPortTextBox" Grid.Row="1" Grid.Column="1"
+                 Text="{Binding Path=ServerConnProps.ServerPort, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource smTextBoxStyle}"
+                 HorizontalAlignment="Left"
+                 Margin="315,5,25,5"/>
+        <!-- /ROW 1 : Server Endpoint -->
+
+        <!-- ROW 2 : User Id -->
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   Style="{StaticResource smallTitleStyle}"
+                   Margin="0,5,0,5">User Id</TextBlock>
+        <TextBox Name="UserIdTextBox" Grid.Row="2" Grid.Column="1"
+                 Text="{Binding Path=ServerConnProps.UserId, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Style="{StaticResource lgTextBoxStyle}" Margin="25,5,0,5"/>
+        <!-- /ROW 2 : User Id -->
+
+        <!-- ROW 3 : Submit -->
+        <Button Name="ConnectToRepoBtn" Grid.Row="3" Grid.Column="1"
+                HorizontalAlignment="Left" Content="Connect"
+                Style="{StaticResource regBtnStyle}"
+                Margin="25,10,25,25"
+                Click="ConnectToRepoBtn_Click"/>
+        <!-- /ROW 3 : Submit -->
+    </Grid>
+</UserControl>

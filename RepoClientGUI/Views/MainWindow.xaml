@@ -1,0 +1,48 @@
+﻿<Window x:Class="RepoClientGUI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RepoClientGUI.Views"
+        xmlns:partials="clr-namespace:RepoClientGUI.Views.Partials"
+        mc:Ignorable="d"
+        Title="Repository Client" Height="575" Width="800"
+        Loaded="MainWindow_Loaded">
+
+    <!-- Root Grid -->
+    <Grid  Background="#EFEBE9">
+        <Grid.RowDefinitions>
+            <!-- ROW 0 : Tabs -->
+            <RowDefinition Height="*" />
+            <!-- ROW 1 : Status Bar -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ROW 0 : Tabs -->
+        <TabControl Grid.Row="0" Name="ClientActionsTabControl" Background="#FAFAFA">
+            <TabItem Header="Connect">
+                <partials:ConnectToRepoView />
+            </TabItem>
+            <TabItem Header="Check In">
+                <partials:CheckInView />
+            </TabItem>
+            <TabItem Header="Check Out">
+                <partials:CheckOutView />
+            </TabItem>
+            <TabItem Header="Browse">
+                <partials:BrowseView />
+            </TabItem>
+        </TabControl>
+        <!-- /ROW 0 : Tabs -->
+
+        <!-- ROW 1 : Status Bar -->
+        <StatusBar Grid.Row="1">
+            <TextBlock Name="statusBarText" 
+                       Text="{Binding Path=ServerConnProps.StatusMsg, UpdateSourceTrigger=PropertyChanged}"/>
+        </StatusBar>
+        <!-- /ROW 1 : Status Bar -->
+
+    </Grid>
+    <!-- /Root Grid -->
+
+</Window>
