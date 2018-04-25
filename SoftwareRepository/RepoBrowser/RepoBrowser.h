@@ -1,7 +1,7 @@
 #pragma once
 //////////////////////////////////////////////////////////////////////////
 // RepoBrowser.h - Implements a Browser for the Software Repository     //
-// ver 1.0                                                              //
+// ver 1.1                                                              //
 // Language:    C++, Visual Studio 2017                                 //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design     //
 // Author:      Ritesh Nair (rgnair@syr.edu)                            //
@@ -22,6 +22,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 24 Apr 2018
+* - implemented new browser semnatics
 * ver 1.0 : 10 Mar 2018
 * - first release
 */
@@ -30,9 +32,10 @@
 #define REPOBROWSER_H
 
 #include "IRepoBrowser.h"
-#include "../ResourcePropertiesDb/IResourcePropertiesDb.h"
-#include "../ResourcePropertiesDb/FileResourcePayload.h"
 #include "../FileResource/FileResource.h"
+#include "../ResourceProperties/FileResourcePayload.h"
+#include "../ResourceProperties/ResourceProperties.h"
+#include "../../NoSqlDb/DbCore/DbCore.h"
 
 namespace SoftwareRepository
 {
@@ -40,10 +43,9 @@ namespace SoftwareRepository
     /////////////////////////////////////////////////////////////////////
     // RepoBrowser
     // - implements a browser for file resource based repository
-    // - requires pointer to a properties db
-    // - if no result processors are provided then prints to console
+    // - requires db associated with the repository
 
-    /*class RepoBrowser : public IRepoBrowser<FileResource, FileResourcePayload>
+    class RepoBrowser : public IBrowseable<FileResource, FileResourcePayload>
     {
     public:
         using VisitedDeps = std::unordered_map<ResourcePropsDbKey, bool>;
@@ -51,23 +53,25 @@ namespace SoftwareRepository
         using ResultProcessors = BrowseResultProcessors<ResultProcessor>;
         using Filter = IBrowserFilter<FileResourcePayload>;
         using Filters = BrowseFilters<Filter>;
-        using FileResources = std::vector<FileResource>;
 
-        RepoBrowser(IResourcePropertiesDb<FileResource, FileResourcePayload> *pPropsDb,
-            bool includeConsoleProcessor = DEFAULT_INCLUDE_CONSOLE_PROCESSOR) : 
-            pPropsDb_(pPropsDb), includeConsoleProcessor_(includeConsoleProcessor) {};
+        RepoBrowser(NoSqlDb::DbCore<FileResourcePayload>& db) : db_(db) {};
 
-        virtual void browse(FileResource, ResourceVersion, ResultProcessors = {}) override;
+        virtual bool exists(ResourceIdentity, ResourceVersion) override;
+        virtual ResourceProperties& get(ResourceIdentity, ResourceVersion) override;
+        virtual void executeQuery(FileResource, ResourceVersion, ResultProcessors) override;
+        virtual void executeQuery(Filters, ResultProcessors) override;
 
     private:
-        IResourcePropertiesDb<FileResource, FileResourcePayload> *pPropsDb_;
+        NoSqlDb::DbCore<FileResourcePayload>& db_;
         bool includeConsoleProcessor_;
         VisitedDeps visited_;
-        ConsoleResultProcessor consoleProcessor_;
+        ResourceProperties currProp_ = ResourceProperties(db_);
 
-        void processResource(ResourceIdentity, ResourceVersion, Level, ResultProcessors);
+        void processResource(ResourceIdentity resourceId,
+            ResourceVersion version, Level level,
+            ResultProcessors processors);
         void clearVisitedDeps() { visited_.clear(); };
-    };*/
+    };
 }
 
 #endif // !REPOBROWSER_H

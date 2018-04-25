@@ -1,7 +1,7 @@
 #pragma once
 /////////////////////////////////////////////////////////////////////////////////////////
 // ResourcePropertiesDbTests.h - Implements all test cases for ResourcePropertiesDb    //
-// ver 1.0                                                                             //
+// ver 1.1                                                                             //
 // Language:    C++, Visual Studio 2017                                                //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design                    //
 // Author:      Ritesh Nair (rgnair@syr.edu)                                           //
@@ -17,6 +17,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 23 Apr 2018
+* - removed resource properties and put it into its own package
 * ver 1.0 : 10 Mar 2018
 * - first release
 */
@@ -36,18 +38,6 @@ namespace SoftwareRepositoryTests
     class TestResourceExistsAndCreateNewPropertiesEntry : public TestCore::AbstractTest {
     public:
         TestResourceExistsAndCreateNewPropertiesEntry(AbstractTest::TestTitle title) : AbstractTest(title) {  }
-        virtual bool operator()();
-    };
-
-    class TestFetchPropertiesForAFileResource : public TestCore::AbstractTest {
-    public:
-        TestFetchPropertiesForAFileResource(AbstractTest::TestTitle title) : AbstractTest(title) {  }
-        virtual bool operator()();
-    };
-
-    class TestModifyFileResourceProperties : public TestCore::AbstractTest {
-    public:
-        TestModifyFileResourceProperties(AbstractTest::TestTitle title) : AbstractTest(title) {  }
         virtual bool operator()();
     };
 

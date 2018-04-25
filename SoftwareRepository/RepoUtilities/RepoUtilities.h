@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // RepoUtilities.h - Implements utility functions which are used by various  //
 //                   Repository components                                   //
-// ver 1.1                                                                   //
+// ver 1.2                                                                   //
 // Language:    C++, Visual Studio 2017                                      //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design          //
 // Author:      Ritesh Nair (rgnair@syr.edu)                                 //
@@ -16,6 +16,7 @@
 * - std::string stringifyDependencies(Dependencies)
 * - std::string stringifyResourceState(State);
 * - FailureReason getFailureReason(FailureCode);
+* - ResourcePropsDbKey getDbKeyForVersion(ResourceIdentity, ResourceVersion)
 *
 * Required Files:
 * ---------------
@@ -23,6 +24,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.2 : 23 Apr 2018
+* - added utility to compute the db id based on resource identity and version
 * ver 1.1 : 10 Mar 2018
 * - added utility to get failure reason given code
 * ver 1.0 : 28 Feb 2018
@@ -86,6 +89,10 @@ namespace SoftwareRepository
     //----< reutrns the failure reason for given code >----------
 
     FailureReason getFailureReason(FailureCode);
+
+    //----< returns a unique identifier for a resource based on the provided version number >--------------------
+
+    ResourcePropsDbKey getDbKeyForVersion(ResourceIdentity, ResourceVersion);
 }
 
 #endif // !REPO_UTILITIES_H

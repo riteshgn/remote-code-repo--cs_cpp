@@ -1,12 +1,45 @@
 #pragma once
+//////////////////////////////////////////////////////////////////////////
+// BrowserFilters.h - Implements various filters for the RepoBrowser    //
+// ver 1.0                                                              //
+// Language:    C++, Visual Studio 2017                                 //
+// Application: SoftwareRepository, CSE687 - Object Oriented Design     //
+// Author:      Ritesh Nair (rgnair@syr.edu)                            //
+//////////////////////////////////////////////////////////////////////////
+/*
+* Package Operations:
+* -------------------
+* This package implements the various instances of IBrowserFilter interface to 
+* provide query builders which are used to exeute queries against the resource
+* properties db.
+* It contains below classes:
+* - FilenameFilter      : queries for the given filename
+* - FileVersionFilter   : queries for given file version
+* - PackageFilter       : queries for given package name
+*
+* Required Files:
+* ---------------
+* IRepoBrowser.h
+* FileResourcePayload.h, FileResourcePayload.cpp
+*
+* Maintenance History:
+* --------------------
+* ver 1.0 : 20 Apr 2018
+* - first release
+*/
+
 #include "IRepoBrowser.h"
-#include "../ResourcePropertiesDb/FileResourcePayload.h"
+#include "../ResourceProperties/FileResourcePayload.h"
 
 #ifndef BROWSERFILTERS_H
 #define BROWSERFILTERS_H
 
 namespace SoftwareRepository
 {
+    /////////////////////////////////////////////////////////////////////
+    // FilenameFilter
+    // - queries for the given filename
+
     class FilenameFilter : public IBrowserFilter<FileResourcePayload>
     {
     public:
@@ -18,6 +51,10 @@ namespace SoftwareRepository
         ResourceName filename_;
     };
 
+    /////////////////////////////////////////////////////////////////////
+    // FileVersionFilter
+    // - queries for given file version
+
     class FileVersionFilter : public IBrowserFilter<FileResourcePayload>
     {
     public:
@@ -28,6 +65,10 @@ namespace SoftwareRepository
         FileVersionFilter(const ResourceVersion& version) : version_(version) {}
         ResourceVersion version_;
     };
+
+    /////////////////////////////////////////////////////////////////////
+    // PackageFilter
+    // - queries for given package name
 
     class PackageFilter : public IBrowserFilter<FileResourcePayload>
     {

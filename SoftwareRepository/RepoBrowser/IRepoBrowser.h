@@ -1,7 +1,7 @@
 #pragma once
 //////////////////////////////////////////////////////////////////////////
 // IRepoBrowser.h - Defines the RepoBrowser interface                   //
-// ver 1.0                                                              //
+// ver 1.1                                                              //
 // Language:    C++, Visual Studio 2017                                 //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design     //
 // Author:      Ritesh Nair (rgnair@syr.edu)                            //
@@ -10,7 +10,7 @@
 * Package Operations:
 * -------------------
 * This package provides interface definition for
-* - Repository Browser
+* - Browseable
 * - Browser Filters
 * - Browser Result Processors
 *
@@ -20,6 +20,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 20 Apr 2018
+* - modified signature of all interfaces
 * ver 1.0 : 10 Mar 2018
 * - first release
 */
@@ -29,6 +31,7 @@
 
 #include "../RepoCore/RepoCoreDefinitions.h"
 #include "../../NoSqlDb/Query/Query.h"
+#include "../ResourceProperties/IResourceProperties.h"
 
 namespace SoftwareRepository
 {
@@ -56,6 +59,24 @@ namespace SoftwareRepository
     public:
         virtual bool operator()(Resource, ResourceVersion, Level) = 0;
     };
+
+    /////////////////////////////////////////////////////////////////////
+    // IRepoBrowser interface
+    // - defines the contract for the browser semantics
+
+    template <typename Resource, typename Payload>
+    class IBrowseable
+    {
+    public:
+        virtual bool exists(ResourceIdentity, ResourceVersion) = 0;
+        virtual IResourceProperties<Payload>& get(ResourceIdentity, ResourceVersion) = 0;
+        virtual void executeQuery(Resource, ResourceVersion,
+            BrowseResultProcessors<IBrowserResultProcessor<Resource>>) = 0;
+        virtual void executeQuery(BrowseFilters<IBrowserFilter<Payload>>,
+            BrowseResultProcessors<IBrowserResultProcessor<Resource>>) = 0;
+    };
+
+
 }
 
 #endif // !IREPO_BROWSER_H

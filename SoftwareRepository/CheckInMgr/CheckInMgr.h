@@ -34,7 +34,7 @@
 #include "../RepoUtilities/RepoUtilities.h"
 #include "../FileResource/FileResource.h"
 #include "../VersionMgr/IVersionMgr.h"
-#include "../ResourcePropertiesDb/FileResourcePayload.h"
+#include "../ResourceProperties/FileResourcePayload.h"
 #include "../ResourcePropertiesDb/IResourcePropertiesDb.h"
 #include "../RepoStore/IRepoStore.h"
 

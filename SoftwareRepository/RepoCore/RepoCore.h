@@ -37,7 +37,7 @@
 
 #include "RepoCoreDefinitions.h"
 #include "../FileResource/FileResource.h"
-#include "../ResourcePropertiesDb/FileResourcePayload.h"
+#include "../ResourceProperties/FileResourcePayload.h"
 #include "../ResourcePropertiesDb/IResourcePropertiesDb.h"
 #include "../RepoStore/IRepoStore.h"
 #include "../VersionMgr/IVersionMgr.h"

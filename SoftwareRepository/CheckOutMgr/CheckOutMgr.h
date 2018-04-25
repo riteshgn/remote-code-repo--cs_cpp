@@ -32,7 +32,7 @@
 
 #include "../RepoCore/RepoCoreDefinitions.h"
 #include "../ResourcePropertiesDb/IResourcePropertiesDb.h"
-#include "../ResourcePropertiesDb/FileResourcePayload.h"
+#include "../ResourceProperties/FileResourcePayload.h"
 #include "../RepoStore/IRepoStore.h"
 #include "../RepoBrowser/RepoBrowser.h"
 #include "../RepoUtilities/RepoUtilities.h"
