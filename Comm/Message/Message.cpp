@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////
 // Message.cpp - defines message structure used in communication channel //
-// ver 1.0                                                               //
+// ver 1.2                                                               //
 // Jim Fawcett, CSE687-OnLine Object Oriented Design, Fall 2017          //
 ///////////////////////////////////////////////////////////////////////////
 
@@ -58,6 +58,28 @@ bool Message::containsKey(const Key& key)
   if (attributes_.find(key) != attributes_.end())
     return true;
   return false;
+}
+//----< remove attribute with this key >-------------------------------
+
+bool Message::remove(const Key& key)
+{
+  if (containsKey(key))
+  {
+    attributes_.erase(key);
+    return true;
+  }
+  return false;
+}
+//----< return value of specified key >--------------------------------
+
+Message::Value Message::value(const Key& key)
+{
+  for (auto item : attributes_)
+  {
+    if (item.first == key)
+      return item.second;
+  }
+  return "";
 }
 //----< get to attribute >---------------------------------------------
 
@@ -243,7 +265,7 @@ int main()
   msg.to(EndPoint("localhost", 8080));
   msg.from(EndPoint("localhost", 8081));
   msg.command("doIt");
-  msg.bodyLength(42);
+  msg.contentLength(42);
   msg.file("someFile");
   msg.show();
 

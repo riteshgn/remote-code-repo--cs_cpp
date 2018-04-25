@@ -1,7 +1,7 @@
 #pragma once
 /////////////////////////////////////////////////////////////////////////
 // Message.h - defines message structure used in communication channel //
-// ver 1.0                                                             //
+// ver 1.2                                                             //
 // Jim Fawcett, CSE687-OnLine Object Oriented Design, Fall 2017        //
 /////////////////////////////////////////////////////////////////////////
 /*
@@ -20,6 +20,10 @@
 *
 *  Maintenance History:
 *  --------------------
+*  ver 1.2 : 27 Mar 2018
+*  - added remove method to remove a message attribute, based on its key
+*  ver 1.1 : 25 Mar 2018
+*  - added method value(Key key) that returns value of attribute with key
 *  ver 1.0 : 03 Oct 2017
 *  - first release
 *
@@ -86,6 +90,8 @@ namespace MsgPassingCommunication
     static Key attribName(const Attribute& attr);
     static Value attribValue(const Attribute& attr);
     bool containsKey(const Key& key);
+    Value value(const Key& key);
+    bool remove(const Key& key);
 
     EndPoint to();
     void to(EndPoint ep);
