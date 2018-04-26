@@ -17,6 +17,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 26 Apr 2018
+* - implemented an exit button
 * ver 1.0 : 29 Mar 2018
 * - first release
 */
@@ -69,6 +71,20 @@ namespace RepoClientGUI.Views.Partials
                     $"as user {state.ServerConnProps.UserId}";
                 state.ServerConnProps.StatusMsg = message;
             }, true);
+        }
+
+        // ----< stops the comm system and pings server on connect button click >--------------------
+
+        private void DisconnectRepoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RepoClientState state = (RepoClientState)this.DataContext;
+            state.ServerCommService.Stop(() => {
+                this.Dispatcher.Invoke(() => {
+                    state.ServerConnProps.Connected = false;
+                    state.ServerConnProps.StatusMsg = "Disconnected";
+                    Application.Current.Shutdown();
+                });
+            });
         }
 
         // ----< actions to be performed when the view is loaded >--------------------

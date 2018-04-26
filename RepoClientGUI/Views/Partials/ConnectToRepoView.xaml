@@ -2,10 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RepoClientGUI.Views.Partials"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:RepoClientGUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="ConnectToRepoView_Loaded">
+    <UserControl.Resources>
+        <converters:NegateBoolConverter x:Key="negateBoolConverter" />
+    </UserControl.Resources>
+    
     <Grid Width="556">
         <Grid.RowDefinitions>
             <!-- ROW 0 : Title -->
@@ -60,7 +64,14 @@
                 HorizontalAlignment="Left" Content="Connect"
                 Style="{StaticResource regBtnStyle}"
                 Margin="25,10,25,25"
+                IsEnabled="{Binding Path=ServerConnProps.Connected, Converter={StaticResource negateBoolConverter}}"
                 Click="ConnectToRepoBtn_Click"/>
+        <Button Name="DisconnectRepoBtn" Grid.Row="3" Grid.Column="1"
+                HorizontalAlignment="Left" Content="Exit"
+                Style="{StaticResource regBtnStyle}"
+                Margin="140,10,25,25"
+                IsEnabled="{Binding Path=ServerConnProps.Connected}"
+                Click="DisconnectRepoBtn_Click"/>
         <!-- /ROW 3 : Submit -->
     </Grid>
 </UserControl>

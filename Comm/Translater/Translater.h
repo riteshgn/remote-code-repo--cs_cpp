@@ -1,8 +1,10 @@
 #pragma once
 /////////////////////////////////////////////////////////////////////////
 // Translater.h - Translates messages to/from managed and native types //
-// ver 1.0                                                             //
-// Jim Fawcett, CSE687 - Object Oriented Design, Spring 2018           //
+// ver 1.1                                                             //
+// Author:      Ritesh Nair                                            //
+// Source:      Jim Fawcett, Syracuse University, CST 4-187            //
+//              jfawcett@twcny.rr.com                                  //
 /////////////////////////////////////////////////////////////////////////
 /*
 *  Package Operations:
@@ -22,6 +24,8 @@
 *
 *  Maintenance History:
 * ----------------------
+*  ver 1.1 : 4/26/2018
+*  - exposed a stop API which will stop all comm systems
 *  ver 1.0 : 3/27/2018
 *  - first release
 */
@@ -44,6 +48,7 @@ namespace MsgPassingCommunication
   public:
     Translater();
     void listen(CsEndPoint^ ep);
+    void stop();
     void postMessage(CsMessage^ msg);
     CsMessage^ getMessage();
     CsMessage^ fromMessage(Message& msg);
@@ -71,6 +76,14 @@ namespace MsgPassingCommunication
     pComm->start();
     delete pFactory;
   }
+
+  //----< stop the Comm system >------------------
+
+  void Translater::stop()
+  {
+      pComm->stop();
+  }
+
   //----< convert native message to managed message >------------------
 
   CsMessage^ Translater::fromMessage(Message& msg)

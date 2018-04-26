@@ -1,10 +1,36 @@
 ﻿/////////////////////////////////////////////////////////////////////////////////
 // RepoServerRequests.cs                                                       //
-// ver 1.0                                                                     //
+// ver 1.1                                                                     //
 // Language:    C#, Visual Studio 2017                                         //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design            //
 // Author:      Ritesh Nair (rgnair@syr.edu)                                   //
 /////////////////////////////////////////////////////////////////////////////////
+/*
+* Package Operations:
+* -------------------
+* This package implements API which Post Requests to the remote server. These include
+* - GetFileMetadata
+* - GetFileText
+* - GetPackageFiles
+* - GetRepoPackages
+* - PostCheckIn
+* - PostCheckOut
+* - Ping
+* Apart from these it also has an API which Requests to shutdown the client's comm system
+* - PostQuit
+*
+* Required Packages:
+* ------------------
+* MsgPassingCommunication
+* Translater.dll
+*
+* Maintenance History:
+* --------------------
+* ver 1.1 : 26 Apr 2018
+* - added API to disconnect the comm service
+* ver 1.0 : 11 Apr 2018
+* - first release
+*/
 
 using MsgPassingCommunication;
 using RepoClientGUI.ViewModels;
@@ -219,6 +245,24 @@ namespace RepoClientGUI.Services.RepoServerComm
             msg.add("namespace", ns);
             msg.add("filename", filename);
             msg.add("version", version.ToString());
+            translater_.postMessage(msg);
+        }
+
+        public void PostQuit(Action<CsMessage> onQuit, bool verbose = false)
+        {
+            string uniqueId = GetUniqueId();
+            dispatcher_[uniqueId] = (CsMessage response) => {
+                onQuit(response);
+                dispatcher_.Remove(uniqueId);
+            };
+
+            CsMessage msg = new CsMessage();
+            msg.add("to", CsEndPoint.toString(endPoint_));
+            msg.add("command", "__quit");
+            msg.add("responseId", uniqueId);
+            msg.add("userId", "system");
+            if (verbose)
+                msg.add("verbose", "yes");
             translater_.postMessage(msg);
         }
 

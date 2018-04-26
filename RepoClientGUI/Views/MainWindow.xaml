@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RepoClientGUI.Views"
         xmlns:partials="clr-namespace:RepoClientGUI.Views.Partials"
+        xmlns:converters="clr-namespace:RepoClientGUI.Converters"
         mc:Ignorable="d"
         Title="Repository Client" Height="575" Width="800"
         Loaded="MainWindow_Loaded">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="boolToVisibiltyConverter" />
+    </Window.Resources>
 
     <!-- Root Grid -->
     <Grid  Background="#EFEBE9">
@@ -23,13 +27,16 @@
             <TabItem Header="Connect">
                 <partials:ConnectToRepoView />
             </TabItem>
-            <TabItem Header="Check In">
+            <TabItem Header="Check In" Visibility="{Binding Path=ServerConnProps.Connected, 
+                                                    Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:CheckInView />
             </TabItem>
-            <TabItem Header="Check Out">
+            <TabItem Header="Check Out" Visibility="{Binding Path=ServerConnProps.Connected, 
+                                                     Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:CheckOutView />
             </TabItem>
-            <TabItem Header="Browse">
+            <TabItem Header="Browse" Visibility="{Binding Path=ServerConnProps.Connected, 
+                                                  Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:BrowseView />
             </TabItem>
         </TabControl>
@@ -37,7 +44,7 @@
 
         <!-- ROW 1 : Status Bar -->
         <StatusBar Grid.Row="1">
-            <TextBlock Name="statusBarText" 
+            <TextBlock Name="statusBarText"
                        Text="{Binding Path=ServerConnProps.StatusMsg, UpdateSourceTrigger=PropertyChanged}"/>
         </StatusBar>
         <!-- /ROW 1 : Status Bar -->
