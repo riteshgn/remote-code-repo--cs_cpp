@@ -19,6 +19,8 @@
 * --------------------
 * ver 1.1 : 26 Apr 2018
 * - implemented an exit button
+* - on successful connection tabs are switched to the check-in tab
+* - added validation for user id
 * ver 1.0 : 29 Mar 2018
 * - first release
 */
@@ -60,16 +62,37 @@ namespace RepoClientGUI.Views.Partials
         {
             RepoClientState state = (RepoClientState)this.DataContext;
 
+            if (String.IsNullOrEmpty(state.ServerConnProps.UserId))
+            {
+                MessageBox.Show("User Id is mandatory for connection", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // start the comm system
             if (!state.ServerConnProps.Connected)
                 state.ServerCommService.Start(state.ServerConnProps.ServerAddress, state.ServerConnProps.ServerPort);
 
             state.ServerCommService.Requests.Ping((PingResponse response) => {
+                // mark connected
                 state.ServerConnProps.Connected = true;
 
+                // set the correct connection message in status bar
                 string message = "Connected to server " +
                     $"{state.ServerConnProps.ServerAddress}:{state.ServerConnProps.ServerPort} " +
                     $"as user {state.ServerConnProps.UserId}";
                 state.ServerConnProps.StatusMsg = message;
+
+                // switch tabs
+                state.ActionTabsProps.ConnectTab.Selected = false;
+                state.ActionTabsProps.CheckInTab.Selected = true;
+
+                // disable connection text boxes
+                this.Dispatcher.Invoke(() => {
+                    ServerAddressTextBox.IsEnabled = false;
+                    ServerPortTextBox.IsEnabled = false;
+                    UserIdTextBox.IsEnabled = false;
+                });
+                
             }, true);
         }
 
@@ -93,7 +116,7 @@ namespace RepoClientGUI.Views.Partials
             if (!loaded_) // ensures that this block is executed only once
             {
                 loaded_ = true;
-                DemoConnection();
+                //DemoConnection();
             }
         }
 

@@ -97,12 +97,13 @@ namespace RepoClientGUI.Views.Partials
         // ----< actions to be performed when the view is loaded >--------------------
         private void CheckOutView_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!loaded_) // ensures that this block is executed only once
+            RepoClientState state = (RepoClientState)this.DataContext;
+            if (!loaded_ && state.ServerConnProps.Connected) // ensures that this block is executed only once
             {
                 loaded_ = true;
 
                 RefreshPackageList();
-                DemoCheckOut();
+                //DemoCheckOut();
             }
         }
 

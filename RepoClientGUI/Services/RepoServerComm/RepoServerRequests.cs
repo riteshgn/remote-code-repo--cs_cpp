@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////////////////
 // RepoServerRequests.cs                                                       //
-// ver 1.1                                                                     //
+// ver 1.2                                                                     //
 // Language:    C#, Visual Studio 2017                                         //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design            //
 // Author:      Ritesh Nair (rgnair@syr.edu)                                   //
@@ -26,6 +26,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.2 : 28 Apr 2018
+* - Updated check-in API with all required attributes
 * ver 1.1 : 26 Apr 2018
 * - added API to disconnect the comm service
 * ver 1.0 : 11 Apr 2018
@@ -33,6 +35,7 @@
 */
 
 using MsgPassingCommunication;
+using RepoClientGUI.Utilities;
 using RepoClientGUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -198,29 +201,51 @@ namespace RepoClientGUI.Services.RepoServerComm
             translater_.postMessage(msg);
         }
 
-        public void PostCheckIn(String package, String ns, String description,
-            String file, String userId, Action<CheckInResponse> action,
-            bool verbose = false)
+        // ----< posts check-in request to the server for every file within the selected package folder >--------------------
+        public void PostCheckIn(String packageFolder, String packageName, String ns, 
+            String description, String category, String userId, 
+            Action<CheckInResponse> action, bool verbose = false)
         {
-            string uniqueId = GetUniqueId();
-            dispatcher_[uniqueId] = (CsMessage response) => {
-                action(new CheckInResponse { Success = response.value("success"), RequestId = uniqueId });
-                dispatcher_.Remove(uniqueId);
-            };
+            postCheckInReq(packageFolder, "*.h", packageName, ns, description, category, userId, action, verbose);
+            postCheckInReq(packageFolder, "*.cpp", packageName, ns, description, category, userId, action, verbose);
+        }
 
-            CsMessage msg = new CsMessage();
-            msg.add("to", CsEndPoint.toString(serverEndPoint_));
-            msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "check-in");
-            msg.add("requestId", uniqueId);
-            msg.add("userId", userId);
-            if (verbose)
-                msg.add("verbose", "yes");
-            msg.add("package", package);
-            msg.add("namespace", ns);
-            msg.add("description", description);
-            //msg.add("file", file);
-            translater_.postMessage(msg);
+        // ----< posts check-in request to the server for every file within the selected package folder matching the pattern >--
+        private void postCheckInReq(String packageFolder, String pattern, String packageName, 
+            String ns, String description, String category, String userId, 
+            Action<CheckInResponse> action, bool verbose)
+        {
+            foreach (Tuple<string, string> fileInfo in FileSystem.GetFilesInDirectory(packageFolder, pattern))
+            {
+                FileSystem.CopyFile(fileInfo.Item2, "../SendFiles");
+
+                string uniqueId = GetUniqueId();
+                dispatcher_[uniqueId] = (CsMessage response) =>
+                {
+                    action(new CheckInResponse {
+                        Success = response.value("success"),
+                        RequestId = uniqueId,
+                        File = fileInfo.Item2
+                    });
+                    dispatcher_.Remove(uniqueId);
+                };
+
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint_));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "check-in");
+                msg.add("requestId", uniqueId);
+                msg.add("userId", userId);
+                if (verbose)
+                    msg.add("verbose", "yes");
+                msg.add("package", packageName);
+                msg.add("namespace", ns);
+                msg.add("description", description);
+                if (!String.IsNullOrEmpty(category))
+                    msg.add("category", category);
+                msg.add("file", fileInfo.Item1);
+                translater_.postMessage(msg);
+            }
         }
 
         public void PostCheckOut(String package, String ns, String filename,

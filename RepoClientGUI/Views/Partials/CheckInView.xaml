@@ -13,11 +13,15 @@
             <RowDefinition Height="Auto" />
             <!-- ROW 1 : Browse Package -->
             <RowDefinition Height="Auto" />
-            <!-- ROW 2 : Package Namespace -->
+            <!-- ROW 2 : Package Name -->
             <RowDefinition Height="Auto" />
-            <!-- ROW 3 : Package Description -->
+            <!-- ROW 3 : Package Namespace -->
             <RowDefinition Height="Auto" />
-            <!-- ROW 4 : Submit -->
+            <!-- ROW 4 : Package Description -->
+            <RowDefinition Height="Auto" />
+            <!-- ROW 5 : Category -->
+            <RowDefinition Height="Auto" />
+            <!-- ROW 6 : Submit -->
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -40,50 +44,66 @@
         <TextBox Name="CheckInPkgTextBox" Grid.Row="1" Grid.Column="1"
                  Text="{Binding Path=CheckInProps.PackageFolder, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource regTextBoxStyle}"
+                 MaxLength="0"
                  HorizontalAlignment="Left"
                  Margin="25,5,0,5"/>
         <Button Name="BrowsePkgFolderBtn" Grid.Row="1" Grid.Column="2"
                 HorizontalAlignment="Left" Content="Browse"
                 Style="{StaticResource regBtnStyle}"
                 Margin="15,5,0,5"
-                Click="BrowsePkgFolderBtn_Click"
-                IsEnabled="False"/>
+                Click="BrowsePkgFolderBtn_Click" />
         <!-- /ROW 1 : Browse Package -->
-
-        <!-- ROW 2 : Package Namespace -->
+        
+        <!-- ROW 2 : Package Name -->
         <TextBlock Grid.Row="2" Grid.Column="0" 
                    Style="{StaticResource smallTitleStyle}" 
+                   Margin="0,5,0,5">Package Name</TextBlock>
+        <TextBox Name="CheckInPkgNameTextBox" Grid.Row="2" Grid.Column="1"
+                 Text="{Binding Path=CheckInProps.PackageName, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource regTextBoxStyle}"
+                 HorizontalAlignment="Left"
+                 Margin="25,5,0,5"/>
+        <!-- /ROW 2 : Package Name -->
+
+        <!-- ROW 3 : Package Namespace -->
+        <TextBlock Grid.Row="3" Grid.Column="0" 
+                   Style="{StaticResource smallTitleStyle}" 
                    Margin="0,5,0,5">Namespace</TextBlock>
-        <TextBox Name="PkgNamespaceTextBox" Grid.Row="2" Grid.Column="1"
+        <TextBox Name="PkgNamespaceTextBox" Grid.Row="3" Grid.Column="1"
                  Text="{Binding Path=CheckInProps.Namespace, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource regTextBoxStyle}"
                  HorizontalAlignment="Left"
                  Margin="25,5,0,5"/>
-        <Button Name="DetectPkgNamespaceBtn" Grid.Row="2" Grid.Column="2"
-                HorizontalAlignment="Left" Content="Detect"
-                Style="{StaticResource regBtnStyle}"
-                Margin="15,5,0,5"
-                Click="DetectPkgNamespaceBtn_Click"
-                IsEnabled="False"/>
-        <!-- /ROW 2 : Package Namespace -->
+        <!-- /ROW 3 : Package Namespace -->
 
-        <!-- ROW 3 : Package Description -->
-        <TextBlock Grid.Row="3" Grid.Column="0" 
+        <!-- ROW 4 : Package Description -->
+        <TextBlock Grid.Row="4" Grid.Column="0" 
                    Style="{StaticResource smallTitleStyle}" 
                    Margin="0,5,0,5">Description</TextBlock>
-        <TextBox Name="PkgDescriptionTextBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+        <TextBox Name="PkgDescriptionTextBox" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
                  Text="{Binding Path=CheckInProps.PackageDescription, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource regTextBoxStyle}"
                  HorizontalAlignment="Left"
                  Margin="25,5,0,5"/>
-        <!-- /ROW 3 : Package Description -->
+        <!-- /ROW 4 : Package Description -->
 
-        <!-- ROW 4 : Submit -->
-        <Button Name="CheckInBtn" Grid.Row="4" Grid.Column="1"
+        <!-- ROW 5 : Category -->
+        <TextBlock Grid.Row="5" Grid.Column="0" 
+                   Style="{StaticResource smallTitleStyle}" 
+                   Margin="0,5,0,5">Category</TextBlock>
+        <TextBox Name="CategoryTextBox" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                 Text="{Binding Path=CheckInProps.Category, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource regTextBoxStyle}"
+                 HorizontalAlignment="Left"
+                 Margin="25,5,0,5"/>
+        <!-- /ROW 5 : Category -->
+
+        <!-- ROW 6 : Submit -->
+        <Button Name="CheckInBtn" Grid.Row="6" Grid.Column="1"
                 HorizontalAlignment="Left" Content="CheckIn"
                 Style="{StaticResource regBtnStyle}"
                 Margin="25,5,25,25"
                 Click="CheckInBtn_Click"/>
-        <!-- /ROW 4 : Submit -->
+        <!-- /ROW 6 : Submit -->
     </Grid>
 </UserControl>

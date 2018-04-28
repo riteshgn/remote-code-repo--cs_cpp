@@ -25,7 +25,14 @@ namespace RepoClientGUI.Services.RepoServerComm
         }
     }
 
-    public class CheckInResponse : ServerResponse { }
+    public class CheckInResponse : ServerResponse {
+        private string file_;
+        public string File
+        {
+            get { return file_; }
+            set { file_ = value; }
+        }
+    }
 
     public class CheckOutResponse : ServerResponse { }
 

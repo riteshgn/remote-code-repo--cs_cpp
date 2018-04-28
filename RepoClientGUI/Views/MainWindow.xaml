@@ -24,19 +24,26 @@
 
         <!-- ROW 0 : Tabs -->
         <TabControl Grid.Row="0" Name="ClientActionsTabControl" Background="#FAFAFA">
-            <TabItem Header="Connect">
+            <TabItem Header="{Binding Path=ActionTabsProps.ConnectTab.Header, UpdateSourceTrigger=PropertyChanged}"
+                     IsSelected="{Binding Path=ActionTabsProps.ConnectTab.Selected, UpdateSourceTrigger=PropertyChanged}">
                 <partials:ConnectToRepoView />
             </TabItem>
-            <TabItem Header="Check In" Visibility="{Binding Path=ServerConnProps.Connected, 
-                                                    Converter={StaticResource boolToVisibiltyConverter}}">
+            <TabItem Header="{Binding Path=ActionTabsProps.CheckInTab.Header, UpdateSourceTrigger=PropertyChanged}"
+                     IsSelected="{Binding Path=ActionTabsProps.CheckInTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
+                     Visibility="{Binding Path=ServerConnProps.Connected, 
+                                          Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:CheckInView />
             </TabItem>
-            <TabItem Header="Check Out" Visibility="{Binding Path=ServerConnProps.Connected, 
-                                                     Converter={StaticResource boolToVisibiltyConverter}}">
+            <TabItem Header="{Binding Path=ActionTabsProps.CheckOutTab.Header, UpdateSourceTrigger=PropertyChanged}"
+                     IsSelected="{Binding Path=ActionTabsProps.CheckOutTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
+                     Visibility="{Binding Path=ServerConnProps.Connected, 
+                                          Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:CheckOutView />
             </TabItem>
-            <TabItem Header="Browse" Visibility="{Binding Path=ServerConnProps.Connected, 
-                                                  Converter={StaticResource boolToVisibiltyConverter}}">
+            <TabItem Header="{Binding Path=ActionTabsProps.BrowseTab.Header, UpdateSourceTrigger=PropertyChanged}"
+                     IsSelected="{Binding Path=ActionTabsProps.BrowseTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
+                     Visibility="{Binding Path=ServerConnProps.Connected, 
+                                          Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:BrowseView />
             </TabItem>
         </TabControl>

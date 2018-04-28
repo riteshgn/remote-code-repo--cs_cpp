@@ -18,6 +18,7 @@ namespace RepoClientGUI.ViewModels
     public class RepoClientState
     {
         private RepoServerConnProps connProps_;
+        private ClientActionTabsProps clientActionTabsProps_;
         private CheckInProps checkInProps_;
         private CheckOutProps checkOutProps_;
         private BrowseProps browseProps_;
@@ -27,6 +28,7 @@ namespace RepoClientGUI.ViewModels
         public RepoClientState(RepoServerCommService serverCommService)
         {
             connProps_ = new RepoServerConnProps { };
+            clientActionTabsProps_ = new ClientActionTabsProps { };
             checkInProps_ = new CheckInProps { };
             checkOutProps_ = new CheckOutProps { };
             browseProps_ = new BrowseProps { };
@@ -38,6 +40,12 @@ namespace RepoClientGUI.ViewModels
         {
             get { return connProps_; }
             set { connProps_ = value; }
+        }
+
+        public ClientActionTabsProps ActionTabsProps
+        {
+            get { return clientActionTabsProps_; }
+            set { clientActionTabsProps_ = value; }
         }
 
         public CheckInProps CheckInProps

@@ -60,8 +60,20 @@ namespace RepoClientGUI.Views.Partials
         {
             RepoClientState state = (RepoClientState)this.DataContext;
             RepoPackage repoPackage = (RepoPackage)PackageListBox.SelectedItem;
-            if (repoPackage != null)
+
+            if (repoPackage.RepoFiles == null || repoPackage.RepoFiles.Count() == 0)
+            {
+                state.ServerCommService.Requests.GetPackageFiles(repoPackage.PackageName,
+                    state.ServerConnProps.UserId, (GetPackageFilesResponse res) =>
+                    {
+                        repoPackage.RepoFiles = res.RepoFiles;
+                        state.BrowseProps.RepoFiles = repoPackage.RepoFiles;
+                    }, true);
+            }
+            else
+            {
                 state.BrowseProps.RepoFiles = repoPackage.RepoFiles;
+            }
         }
 
         // ----< fetches file's text from server and displays it >--------------------
@@ -100,18 +112,18 @@ namespace RepoClientGUI.Views.Partials
         // ----< actions to be performed when the view is loaded >--------------------
         private void BrowseView_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!loaded_) // ensures that this block is executed only once
+            RepoClientState state = (RepoClientState)this.DataContext;
+            if (!loaded_ && state.ServerConnProps.Connected) // ensures that this block is executed only once
             {
                 loaded_ = true;
 
                 // subscribe to the show metadata and show file text commands and register 
                 // corresponding actions to be performed
-                RepoClientState state = (RepoClientState)this.DataContext;
                 state.BrowseProps.ShowMetadataCommand.Subscribe(MetadataLink_ClickAction);
                 state.BrowseProps.ShowFileTextCommand.Subscribe(FileTextLink_ClickAction);
 
-                //RefreshPackageList();
-                DemoBrowse();
+                RefreshPackageList();
+                //DemoBrowse();
             }
             
         }

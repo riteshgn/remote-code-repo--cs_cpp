@@ -60,9 +60,7 @@ namespace RepoClientGUI.Views
         public MainWindow(RepoClientState state)
         {
             InitializeComponent();
-
-            //RepoServerCommService service = RepoServerCommService.GetInstance();
-            //state_ = new RepoClientState(service);
+            
             state_ = state;
         }
 

@@ -17,6 +17,11 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 28 Apr 2018
+* - added a browse folder dialog box
+* - package name and namespace detected based on selected folder name
+* - introduced a category text box
+* - passing arguments based on changes for check-in request
 * ver 1.0 : 30 Mar 2018
 * - first release
 */
@@ -47,44 +52,42 @@ namespace RepoClientGUI.Views.Partials
     {
         private bool loaded_ = false;
 
+        // reference: https://msdn.microsoft.com/en-us/library/system.windows.forms.folderbrowserdialog.aspx
+        private System.Windows.Forms.FolderBrowserDialog browsePkgFolderDialog;
+
         public CheckInView()
         {
             InitializeComponent();
+            SetupBrowsePkgDialog();
         }
 
+        // ----< pops-up a folder select dialog box to select the package folder >--------------------
         private void BrowsePkgFolderBtn_Click(object sender, RoutedEventArgs e)
         {
-            //RepoClientState state = (RepoClientState)this.DataContext;
-            //string message = "Connecting to server " + 
-            //    $"'{state.ServerConnProps.ServerAddress}:{state.ServerConnProps.ServerPort}' " +
-            //    $"as user '{state.ServerConnProps.UserId}'";
-            //MessageBox.Show(message);
-        }
-
-        private void DetectPkgNamespaceBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //RepoClientState state = (RepoClientState)this.DataContext;
-            //string message = "Connecting to server " + 
-            //    $"'{state.ServerConnProps.ServerAddress}:{state.ServerConnProps.ServerPort}' " +
-            //    $"as user '{state.ServerConnProps.UserId}'";
-            //MessageBox.Show(message);
+            // Show the FolderBrowserDialog.
+            System.Windows.Forms.DialogResult result = browsePkgFolderDialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                RepoClientState state = (RepoClientState)this.DataContext;
+                state.CheckInProps.PackageFolder = browsePkgFolderDialog.SelectedPath;
+            }
         }
 
         // ----< posts check-in request to the server on button click >--------------------
         private void CheckInBtn_Click(object sender, RoutedEventArgs e)
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            string message = $"Committing files from package folder '{state.CheckInProps.PackageFolder}'\n" + 
-                $"Namespace: '{state.CheckInProps.Namespace}'\n" +
-                $"Description: '{state.CheckInProps.PackageDescription}'";
-            MessageBox.Show(message, "Check-In");
-
-            state.ServerCommService.Requests.PostCheckIn("NoSqlDb",
+            state.ServerCommService.Requests.PostCheckIn(
+                state.CheckInProps.PackageFolder,
+                state.CheckInProps.PackageName,
                 state.CheckInProps.Namespace,
                 state.CheckInProps.PackageDescription,
-                "Logger.h",
+                state.CheckInProps.Category,
                 state.ServerConnProps.UserId,
-                (CheckInResponse response) => {}, true);
+                (CheckInResponse response) => {
+                    string message = $"Succesfully uploaded file '{response.File}'";
+                    MessageBox.Show(message, "Check-In");
+                }, true);
         }
 
         // ----< actions to be performed when the view is loaded >--------------------
@@ -93,8 +96,20 @@ namespace RepoClientGUI.Views.Partials
             if (!loaded_) // ensures that this block is executed only once
             {
                 loaded_ = true;
-                DemoCheckIn();
+                //DemoCheckIn();
             }
+        }
+
+        private void SetupBrowsePkgDialog()
+        {
+            this.browsePkgFolderDialog = new System.Windows.Forms.FolderBrowserDialog {
+                // Set the help text description for the FolderBrowserDialog.
+                Description = "Select the package directory that you want to check-in to the repository",
+                // Do not allow the user to create new files via the FolderBrowserDialog.
+                ShowNewFolderButton = false,
+                // Default to the My Documents folder.
+                RootFolder = Environment.SpecialFolder.MyComputer
+            };
         }
 
         // ----< demonstrates req #3b - check-in >--------------------
@@ -105,19 +120,19 @@ namespace RepoClientGUI.Views.Partials
             state.CheckInProps.Namespace = "NoSqlDb";
             state.CheckInProps.PackageDescription = "Provides core key-value db semantics";
 
-            state.ServerCommService.Requests.PostCheckIn("NoSqlDb",
-                state.CheckInProps.Namespace,
-                state.CheckInProps.PackageDescription,
-                "Logger.h",
-                state.ServerConnProps.UserId,
-                (CheckInResponse response) => {
-                    Console.WriteLine($"\n\n{new String('-', 60)}");
-                    Console.WriteLine("  Demonstrating Requirement 3b - Check-In");
-                    Console.WriteLine($"{new String('-', 60)}\n");
-                    Console.WriteLine($"    > Check-In requestId [{response.RequestId}] succeeded");
-                    Console.WriteLine($"    > Server responded to request with status success: {response.Success}");
-                    Console.WriteLine($"\n  Test Passed\n");
-                }, true);
+            //state.ServerCommService.Requests.PostCheckIn("NoSqlDb",
+            //    state.CheckInProps.Namespace,
+            //    state.CheckInProps.PackageDescription,
+            //    "Logger.h",
+            //    state.ServerConnProps.UserId,
+            //    (CheckInResponse response) => {
+            //        Console.WriteLine($"\n\n{new String('-', 60)}");
+            //        Console.WriteLine("  Demonstrating Requirement 3b - Check-In");
+            //        Console.WriteLine($"{new String('-', 60)}\n");
+            //        Console.WriteLine($"    > Check-In requestId [{response.RequestId}] succeeded");
+            //        Console.WriteLine($"    > Server responded to request with status success: {response.Success}");
+            //        Console.WriteLine($"\n  Test Passed\n");
+            //    }, true);
         }
     }
 }

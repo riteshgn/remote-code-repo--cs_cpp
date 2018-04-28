@@ -8,22 +8,11 @@
 /*
 * Package Operations:
 * -------------------
-* This package implements the MainWindow for the Repository Client GUI. 
-* It renders the following 
-* - A Tab Control which provides navigation to below features provided
-*   by the repository
-*   - connect
-*   - check-in
-*   - check-out
-*   - browse
-*   Each tab is rendered by a User Control defined under Views/Partials
-* - A Status bar which displays relevant information based on the user's 
-*   actions
+* This package provides a minimalistic command line parser
 *
 * Required Packages:
 * ------------------
-* RepoClientGUI.Services.RepoServerComm
-* RepoClientGUI.ViewModels
+* - Nil-
 *
 * Maintenance History:
 * --------------------

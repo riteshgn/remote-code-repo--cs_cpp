@@ -6,9 +6,9 @@
 // Author:      Ritesh Nair (rgnair@syr.edu)                                   //
 /////////////////////////////////////////////////////////////////////////////////
 
+using RepoClientGUI.Utilities;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,19 +85,7 @@ namespace RepoClientGUI.ViewModels
         // ----< loads the contents of the file from disk  >--------------------
         public static string readFileText(string filename)
         {
-            // reference: https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
-            try
-            {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader($"../SaveFiles/{filename}"))
-                {
-                    // Read the stream to a string, and write the string to the console.
-                    return sr.ReadToEnd();
-                }
-            }
-            catch (Exception exp)
-            {
-                return ("The file could not be read:");
-            }
+            return FileSystem.GetFileText($"../SaveFiles/{filename}");
         }
     }
 }
