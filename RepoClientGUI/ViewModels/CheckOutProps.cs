@@ -18,12 +18,12 @@ namespace RepoClientGUI.ViewModels
     public class CheckOutProps : BaseViewModel
     {
         private string checkoutFolder_;
-        private bool dependenciesAreFetched_;
+        private bool dependenciesAreRequired_;
         private SubcribableCustomCommand<CheckOutProps> downloadRequestCommand_;
 
         public CheckOutProps()
         {
-            dependenciesAreFetched_ = true;
+            dependenciesAreRequired_ = true;
             downloadRequestCommand_ = new SubcribableCustomCommand<CheckOutProps>();
         }
 
@@ -33,10 +33,10 @@ namespace RepoClientGUI.ViewModels
             set { checkoutFolder_ = value; this.OnPropertyChanged("CheckoutFolder"); }
         }
 
-        public bool DependenciesAreFetched
+        public bool DependentsAreRequired
         {
-            get { return dependenciesAreFetched_; }
-            set { dependenciesAreFetched_ = value; this.OnPropertyChanged("DependenciesAreFetched"); }
+            get { return dependenciesAreRequired_; }
+            set { dependenciesAreRequired_ = value; this.OnPropertyChanged("DependentsAreRequired"); }
         }
 
         public SubcribableCustomCommand<CheckOutProps> DownloadRequestCommand

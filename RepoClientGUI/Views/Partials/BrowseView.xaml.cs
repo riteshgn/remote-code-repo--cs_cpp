@@ -129,7 +129,7 @@ namespace RepoClientGUI.Views.Partials
             }
         }
         
-        // ----< posts checkout request to the server on button click >--------------------
+        // ----< downloads required files on button click >--------------------
         private void DownloadBtn_ClickAction(CheckOutProps props)
         {
             checkOutFilesPopup_.Close();
@@ -137,21 +137,62 @@ namespace RepoClientGUI.Views.Partials
             RepoClientState state = (RepoClientState)this.DataContext;
             foreach (RepoFile repoFile in state.BrowseProps.SelectionPreview)
             {
-                state.ServerCommService.Requests.PostCheckOut(
+                Download(repoFile);
+
+                if (state.CheckOutProps.DependentsAreRequired)
+                {
+                    ProcessDependentDownloads(repoFile);
+                }
+            }
+        }
+
+        // ----< posts checkout request to the server >--------------------
+        private void Download(RepoFile repoFile)
+        {
+            RepoClientState state = (RepoClientState)this.DataContext;
+            state.ServerCommService.Requests.PostCheckOut(
                     repoFile.PackageName,
                     repoFile.Namespace,
                     repoFile.Filename,
                     repoFile.Version,
-                    state.CheckOutProps.DependenciesAreFetched,
+                    state.CheckOutProps.DependentsAreRequired,
                     state.ServerConnProps.UserId,
                     (CheckOutResponse response) =>
                     {
                         RepoFile.copyToDest(repoFile, state.CheckOutProps.CheckoutFolder);
-                        string message = $"Succesfully downloaded file '{repoFile.Filename}' " + 
+                        string message = $"Succesfully downloaded file '{repoFile.Filename}' " +
                             $"to {state.CheckOutProps.CheckoutFolder}";
                         MessageBox.Show(message, "Check-Out");
                     },
                     true);
+        }
+
+        // ----< posts checkout request to the server on button click >--------------------
+        private void DownloadDependents(RepoFileMetadata repoFileMeta)
+        {
+            RepoClientState state = (RepoClientState)this.DataContext;
+            foreach (RepoFile dep in repoFileMeta.Dependencies)
+                Download(dep);
+        }
+
+        private void ProcessDependentDownloads(RepoFile repoFile)
+        {
+            RepoClientState state = (RepoClientState)this.DataContext;
+            string metadataKey = RepoFile.stringify(repoFile);
+            if (state.BrowseProps.MetadataDict.ContainsKey(metadataKey))
+            {
+                DownloadDependents(state.BrowseProps.MetadataDict[metadataKey]);
+            }
+            else
+            {
+                state.ServerCommService.Requests.GetFileMetadata(repoFile.PackageName,
+                    repoFile.Namespace, repoFile.Filename, repoFile.Version,
+                    state.ServerConnProps.UserId,
+                    (GetFileMetadataResponse metadataRes) =>
+                    {
+                        state.BrowseProps.MetadataDict[metadataKey] = metadataRes.Metadata;
+                        this.Dispatcher.Invoke(() => DownloadDependents(state.BrowseProps.MetadataDict[metadataKey]));
+                    }, true);
             }
         }
 

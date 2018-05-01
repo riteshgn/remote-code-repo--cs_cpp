@@ -184,23 +184,11 @@ namespace SoftwareRepository
 
         static HandlerFn getFileMetadata()
         {
-            return checkOut();
-        }
-
-        // ----< handles requests to send given file's content >--------------------
-
-        static HandlerFn getFileText()
-        {
             return [](Message& message, RepoCore& repo) {
                 FileResource res(message.value("namespace"), message.value("filename"));
                 ResourceVersion version = std::stoi(message.value("version"));
-                std::string sourceFilename = FileSystemStore::getFilenameForSave(res.getIdentity(), version);
-                std::string sourceFilePath = FileSystem::Path::getFullFileSpec(
-                    DEFAULT_FILE_STORE_ROOT_FOLDER + '\\' + sourceFilename);
-                std::string destFilename = res.getResourceName();
-                std::string destPath = FileSystem::Path::getFullFileSpec("../SendFiles/" + destFilename);
-
-                FileSystem::File::copy(sourceFilePath, destPath);
+                FileMetadataProcessor metadataProcessor;
+                repo.browse(res, version, { metadataProcessor });
 
                 Message reply;
                 reply.to(message.from());
@@ -208,10 +196,27 @@ namespace SoftwareRepository
                 if (message.containsKey("requestId"))
                     reply.attribute("responseId", message.value("requestId"));
 
-                reply.file(destFilename);
+                std::string ns = message.value("namespace");
+                std::string filename = message.value("filename");
+
+                reply.attribute("author", metadataProcessor.getAuthor());
+                reply.attribute("description", metadataProcessor.getDescription());
+                int count = 1;
+                for (std::string depFilename : metadataProcessor.getDependencies())
+                {
+                    reply.attribute("dependency-" + std::to_string(count), depFilename);
+                    count++;
+                }
 
                 return reply;
             };
+        }
+
+        // ----< handles requests to send given file's content >--------------------
+
+        static HandlerFn getFileText()
+        {
+            return checkOut();
         }
     };
 }

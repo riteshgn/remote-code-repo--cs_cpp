@@ -36,8 +36,8 @@
         <!-- /ROW 0 & 1 : Download Location -->
 
         <WrapPanel Grid.Row="2" Grid.Column="0" Margin="25,5,0,5">
-            <CheckBox IsChecked="{Binding Path=CheckOutProps.DependenciesAreFetched}" Margin="0 2"/>
-            <TextBlock Style="{StaticResource subTitleStyle}" Margin="5 0 0 0">Include Dependencies</TextBlock>
+            <CheckBox IsChecked="{Binding Path=CheckOutProps.DependentsAreRequired}" Margin="0 2"/>
+            <TextBlock Style="{StaticResource subTitleStyle}" Margin="5 0 0 0">Include Dependents</TextBlock>
         </WrapPanel>
 
         <!-- ROW 3 : Submit -->

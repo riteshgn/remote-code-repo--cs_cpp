@@ -2,7 +2,7 @@
   <shard name="VersionMgr">
     <record>
       <key>
-        TreeWalkDemo##TreeWalkDemo.cpp
+        NoSqlDb##TestQuery.h
       </key>
       <value>
         <metadata>
@@ -11,7 +11,55 @@
           <description>
           </description>
           <datetime>
-            Tue May  1 00:59:10 2018
+            Tue May  1 16:19:41 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##Query.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:40 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        FileSystem##FileSystem.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:02:29 2018
           </datetime>
         </metadata>
         <payload>
@@ -50,7 +98,79 @@
     </record>
     <record>
       <key>
-        FileSystem##FileSystem.cpp
+        SoftwareRepository##FileSystemStore.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:21:21 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        SoftwareRepository##RepoCoreTests.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:20:40 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        TreeWalkDemo##TreeWalkDemo.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 00:59:10 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        FileSystem##FileSystem.h
       </key>
       <value>
         <metadata>
@@ -84,30 +204,6 @@
           </description>
           <datetime>
             Tue May  1 01:00:29 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            1
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        FileSystem##FileSystem.h
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Tue May  1 01:02:29 2018
           </datetime>
         </metadata>
         <payload>
@@ -252,6 +348,318 @@
           </description>
           <datetime>
             Tue May  1 01:04:13 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##TestDbCore.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:18:36 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##DbCore.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:18:35 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##DbCoreTestHelper.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:18:36 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        SoftwareRepository##RepoStore.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:21:23 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##DbCore.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:18:37 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##TestPersistence.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:09 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##Persistence.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:08 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##Persistence.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:09 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##Query.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:41 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        SoftwareRepository##RepoCore.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:20:39 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        SoftwareRepository##RepoCoreDefinitions.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:20:39 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        SoftwareRepository##RepoCore.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:20:40 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        SoftwareRepository##IRepoStore.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:21:22 2018
           </datetime>
         </metadata>
         <payload>
