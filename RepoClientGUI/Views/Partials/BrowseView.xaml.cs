@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////
 // BrowseView.xaml.cs - View which provides controls for Repository Browsing  //
-// ver 1.0                                                                    //
+// ver 1.1                                                                    //
 // Language:    C#, Visual Studio 2017                                        //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design           //
 // Author:      Ritesh Nair (rgnair@syr.edu)                                  //
@@ -20,6 +20,9 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - fixed onload refresh packages issue
+* - packages are searched by provided category
 * ver 1.0 : 10 Apr 2018
 * - first release
 */
@@ -110,11 +113,16 @@ namespace RepoClientGUI.Views.Partials
             }
         }
 
+        private void SearchCategoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshPackageList();
+        }
+
         // ----< actions to be performed when the view is loaded >--------------------
         private void BrowseView_Loaded(object sender, RoutedEventArgs e)
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            if (!loaded_ && state.ServerConnProps.Connected) // ensures that this block is executed only once
+            if (!loaded_) // ensures that this block is executed only once
             {
                 loaded_ = true;
 
@@ -123,18 +131,20 @@ namespace RepoClientGUI.Views.Partials
                 state.BrowseProps.ShowMetadataCommand.Subscribe(MetadataLink_ClickAction);
                 state.BrowseProps.ShowFileTextCommand.Subscribe(FileTextLink_ClickAction);
 
-                RefreshPackageList();
+                state.BrowseProps.Category = "utility";
                 //DemoBrowse();
             }
             
+            if (state.ServerConnProps.Connected)
+                RefreshPackageList();
         }
 
         // ----< requests the server for list of packages >--------------------
         private void RefreshPackageList()
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            state.ServerCommService.Requests.GetRepoPackages(state.ServerConnProps.UserId,
-                (GetRepoPackagesResponse response) => state.BrowseProps.RepoPackages.AddRange(response.RepoPackages));
+            state.ServerCommService.Requests.GetRepoPackages(state.BrowseProps.Category, state.ServerConnProps.UserId,
+                (GetRepoPackagesResponse response) => state.BrowseProps.RepoPackages = response.RepoPackages);
         }
 
         // ----< displays a message box with the metadata information of selected file >--------------------
@@ -156,7 +166,7 @@ namespace RepoClientGUI.Views.Partials
         private void DemoBrowse()
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            state.ServerCommService.Requests.GetRepoPackages(state.ServerConnProps.UserId,
+            state.ServerCommService.Requests.GetRepoPackages("utility", state.ServerConnProps.UserId,
                 (GetRepoPackagesResponse response) =>
                 {
                     Console.WriteLine($"\n\n{new String('-', 60)}");

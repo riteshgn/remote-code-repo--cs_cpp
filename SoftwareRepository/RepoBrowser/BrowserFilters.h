@@ -1,7 +1,7 @@
 #pragma once
 //////////////////////////////////////////////////////////////////////////
 // BrowserFilters.h - Implements various filters for the RepoBrowser    //
-// ver 1.0                                                              //
+// ver 1.1                                                              //
 // Language:    C++, Visual Studio 2017                                 //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design     //
 // Author:      Ritesh Nair (rgnair@syr.edu)                            //
@@ -15,6 +15,7 @@
 * It contains below classes:
 * - FilenameFilter      : queries for the given filename
 * - FileVersionFilter   : queries for given file version
+* - CategoryFilter      : queries for given category
 * - PackageFilter       : queries for given package name
 *
 * Required Files:
@@ -24,6 +25,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - added category filter
 * ver 1.0 : 20 Apr 2018
 * - first release
 */
@@ -64,6 +67,21 @@ namespace SoftwareRepository
     private:
         FileVersionFilter(const ResourceVersion& version) : version_(version) {}
         ResourceVersion version_;
+    };
+
+    /////////////////////////////////////////////////////////////////////
+    // CategoryFilter
+    // - queries for given package name
+
+    class CategoryFilter : public IBrowserFilter<FileResourcePayload>
+    {
+    public:
+        virtual NoSqlDb::Query<FileResourcePayload> apply(const NoSqlDb::Query<FileResourcePayload>&) override;
+        static CategoryFilter create(const PackageName& category) { return CategoryFilter(category); }
+
+    private:
+        CategoryFilter(const Category& category) : category_(category) {}
+        Category category_;
     };
 
     /////////////////////////////////////////////////////////////////////

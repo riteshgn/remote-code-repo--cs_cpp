@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////////////////
 // RepoServerRequests.cs                                                       //
-// ver 1.2                                                                     //
+// ver 1.3                                                                     //
 // Language:    C#, Visual Studio 2017                                         //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design            //
 // Author:      Ritesh Nair (rgnair@syr.edu)                                   //
@@ -26,6 +26,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.3 : 30 Apr 2018
+* - get package list request now searches based on category
 * ver 1.2 : 28 Apr 2018
 * - Updated check-in API with all required attributes
 * ver 1.1 : 26 Apr 2018
@@ -169,7 +171,7 @@ namespace RepoClientGUI.Services.RepoServerComm
             translater_.postMessage(msg);
         }
 
-        public void GetRepoPackages(String userId,
+        public void GetRepoPackages(String category, String userId,
             Action<GetRepoPackagesResponse> action, bool verbose = false)
         {
             string uniqueId = GetUniqueId();
@@ -198,6 +200,7 @@ namespace RepoClientGUI.Services.RepoServerComm
             msg.add("userId", userId);
             if (verbose)
                 msg.add("verbose", "yes");
+            msg.add("category", category);
             translater_.postMessage(msg);
         }
 

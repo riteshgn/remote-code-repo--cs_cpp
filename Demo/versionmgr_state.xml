@@ -2,7 +2,7 @@
   <shard name="VersionMgr">
     <record>
       <key>
-        FileSystem##FileSystem.h
+        TreeWalkDemo##TreeWalkDemo.cpp
       </key>
       <value>
         <metadata>
@@ -11,7 +11,7 @@
           <description>
           </description>
           <datetime>
-            Mon Apr 30 21:23:09 2018
+            Tue May  1 00:59:10 2018
           </datetime>
         </metadata>
         <payload>
@@ -26,7 +26,7 @@
     </record>
     <record>
       <key>
-        FileSystem##Logger.h
+        TestUtilities##TestUtilities.cpp
       </key>
       <value>
         <metadata>
@@ -35,31 +35,7 @@
           <description>
           </description>
           <datetime>
-            Mon Apr 30 21:23:09 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            2
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        FileSystem##RepoCore.h
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Mon Apr 30 21:23:09 2018
+            Tue May  1 01:00:29 2018
           </datetime>
         </metadata>
         <payload>
@@ -83,7 +59,7 @@
           <description>
           </description>
           <datetime>
-            Mon Apr 30 21:23:09 2018
+            Tue May  1 01:02:29 2018
           </datetime>
         </metadata>
         <payload>
@@ -98,7 +74,7 @@
     </record>
     <record>
       <key>
-        FileSystem##Logger.cpp
+        TestUtilities##TestUtilities.h
       </key>
       <value>
         <metadata>
@@ -107,7 +83,7 @@
           <description>
           </description>
           <datetime>
-            Mon Apr 30 21:23:09 2018
+            Tue May  1 01:00:29 2018
           </datetime>
         </metadata>
         <payload>
@@ -115,14 +91,14 @@
             rgnair
           </author>
           <currentVersion>
-            2
+            1
           </currentVersion>
         </payload>
       </value>
     </record>
     <record>
       <key>
-        FileSystem##RepoCore.cpp
+        FileSystem##FileSystem.h
       </key>
       <value>
         <metadata>
@@ -131,7 +107,151 @@
           <description>
           </description>
           <datetime>
-            Mon Apr 30 21:23:09 2018
+            Tue May  1 01:02:29 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        Utilities##StringUtilities.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:01:28 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        Utilities##StringUtilities.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:01:29 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        Utilities##CodeUtilities.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:03:35 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        Utilities##CodeUtilities.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:03:35 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        Process##Process.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:04:13 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        Process##Process.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:04:13 2018
           </datetime>
         </metadata>
         <payload>

@@ -1,7 +1,7 @@
 #pragma once
 /////////////////////////////////////////////////////////////////////////////
 // MessageHandlers.h - Implements the Remote Repository Server             //
-// ver 1.0                                                                 //
+// ver 1.1                                                                 //
 // Language:    C++, Visual Studio 2017                                    //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design        //
 // Author:      Ritesh Nair (rgnair@syr.edu)                               //
@@ -18,9 +18,16 @@
 * ---------------
 * RemoteRepositoryDefinitions.h
 * FileResource.h, FileResource.cpp
+* BrowseResultProcessors.h
+* BrowserFilters.h, RepoBrowser.cpp
+* FileSystem.h, FileSystem.cpp
+* FileSystemStore.h, FileSystemStore.cpp
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - message handlers use repocore for browsing packages, package files, file metadata
+*   and file text
 * ver 1.0 : 28 Apr 2018
 * - first release
 */
@@ -29,10 +36,15 @@
 #define MESSAGE_HANDLERS_H
 
 #include "RemoteCodeRepositoryDefinitions.h"
+#include "BrowseResultProcessors.h"
 #include "../SoftwareRepository/FileResource/FileResource.h"
+#include "../SoftwareRepository/RepoBrowser/BrowserFilters.h"
+#include "../SoftwareRepository/RepoStore/FileSystemStore.h"
+#include "../SoftwareRepository/FileSystemDemo/FileSystem.h"
 
 namespace SoftwareRepository
 {
+
     /////////////////////////////////////////////////////////////////////
     // Handlers
     // utility class that provides Message Handlers
@@ -107,13 +119,24 @@ namespace SoftwareRepository
         static HandlerFn getRepoPackages()
         {
             return [](Message& message, RepoCore& repo) {
+
+                CategoryFilter thisCategory = CategoryFilter::create(message.value("category"));
+                PackagesProcessor packagesProcessor;
+                repo.browse({ thisCategory }, { packagesProcessor });
+
                 Message reply;
                 reply.to(message.from());
                 reply.from(message.to());
                 if (message.containsKey("requestId"))
                     reply.attribute("responseId", message.value("requestId"));
-                reply.attribute("package-1", "FileSystemDemo");
-                reply.attribute("package-2", "RepoCore");
+
+                int count = 1;
+                for (PackageName packageName : packagesProcessor.getPackages())
+                {
+                    reply.attribute("package-" + std::to_string(count), packageName);
+                    count++;
+                }
+
                 return reply;
             };
         }
@@ -123,24 +146,22 @@ namespace SoftwareRepository
         static HandlerFn getPackageFiles()
         {
             return [](Message& message, RepoCore& repo) {
+
+                PackageFilter thisPackage = PackageFilter::create(message.value("package"));
+                PackageFilesProcessor packageFilesProcessor;
+                repo.browse({ thisPackage }, { packageFilesProcessor });
+
                 Message reply;
                 reply.to(message.from());
                 reply.from(message.to());
                 if (message.containsKey("requestId"))
                     reply.attribute("responseId", message.value("requestId"));
 
-                if ("FileSystemDemo" == message.value("package"))
+                int count = 1;
+                for (std::string filename : packageFilesProcessor.getPackageFiles())
                 {
-                    reply.attribute("file-1", "FileSystemDemo#FileSystem#FileSystem.h.1");
-                    reply.attribute("file-2", "FileSystemDemo#FileSystem#FileSystem.cpp.1");
-                    reply.attribute("file-3", "FileSystemDemo#FileSystem#FileSystem.h.2");
-                    reply.attribute("file-4", "FileSystemDemo#FileSystem#FileSystem.cpp.2");
-                }
-
-                if ("RepoCore" == message.value("package"))
-                {
-                    reply.attribute("file-1", "RepoCore#SoftwareRepository#RepoCore.h.1");
-                    reply.attribute("file-2", "RepoCore#SoftwareRepository#RepoCore.cpp.1");
+                    reply.attribute("file-" + std::to_string(count), filename);
+                    count++;
                 }
 
                 return reply;
@@ -152,6 +173,11 @@ namespace SoftwareRepository
         static HandlerFn getFileMetadata()
         {
             return [](Message& message, RepoCore& repo) {
+                FileResource res(message.value("namespace"), message.value("filename"));
+                ResourceVersion version = std::stoi(message.value("version"));
+                FileMetadataProcessor metadataProcessor;
+                repo.browse(res, version, { metadataProcessor });
+
                 Message reply;
                 reply.to(message.from());
                 reply.from(message.to());
@@ -161,22 +187,13 @@ namespace SoftwareRepository
                 std::string ns = message.value("namespace");
                 std::string filename = message.value("filename");
 
-                if ("FileSystem.h" == filename
-                    || "FileSystem.cpp" == filename)
+                reply.attribute("author", metadataProcessor.getAuthor());
+                reply.attribute("description", metadataProcessor.getDescription());
+                int count = 1;
+                for (std::string depFilename : metadataProcessor.getDependencies())
                 {
-                    reply.attribute("description", "Utilities to interact with Filesystem");
-                    reply.attribute("author", "jfawcett");
-                    reply.attribute("dependency-1", "Utilities#Utilities#Utilities.h.1");
-                    reply.attribute("dependency-2", "Utilities#Utilities#Utilities.cpp.1");
-                }
-
-                if ("RepoCore.h" == filename
-                    || "RepoCore.cpp" == filename)
-                {
-                    reply.attribute("description", "Provides core repository semantics");
-                    reply.attribute("author", "rgnair");
-                    reply.attribute("dependency-1", "FileSystemDemo#FileSystem#FileSystem.h.2");
-                    reply.attribute("dependency-2", "FileSystemDemo#FileSystem#FileSystem.cpp.2");
+                    reply.attribute("dependency-" + std::to_string(count), depFilename);
+                    count++;
                 }
 
                 return reply;
@@ -188,17 +205,23 @@ namespace SoftwareRepository
         static HandlerFn getFileText()
         {
             return [](Message& message, RepoCore& repo) {
+                FileResource res(message.value("namespace"), message.value("filename"));
+                ResourceVersion version = std::stoi(message.value("version"));
+                std::string sourceFilename = FileSystemStore::getFilenameForSave(res.getIdentity(), version);
+                std::string sourceFilePath = FileSystem::Path::getFullFileSpec(
+                    DEFAULT_FILE_STORE_ROOT_FOLDER + '\\' + sourceFilename);
+                std::string destFilename = res.getResourceName();
+                std::string destPath = FileSystem::Path::getFullFileSpec("../SendFiles/" + destFilename);
+
+                FileSystem::File::copy(sourceFilePath, destPath);
+
                 Message reply;
                 reply.to(message.from());
                 reply.from(message.to());
                 if (message.containsKey("requestId"))
                     reply.attribute("responseId", message.value("requestId"));
 
-                std::string ns = message.value("namespace");
-                std::string filename = message.value("filename");
-                std::string version = message.value("version");
-
-                reply.file(filename);
+                reply.file(destFilename);
 
                 return reply;
             };

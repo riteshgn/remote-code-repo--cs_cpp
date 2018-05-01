@@ -17,7 +17,7 @@ namespace RepoClientGUI.ViewModels
 {
     public class BrowseProps : BaseViewModel
     {
-        private string checkoutFolder_;
+        private string category_;
         private bool dependenciesAreFetched_;
         private List<RepoPackage> repoPackages_;
         private List<RepoFile> repoFiles_;
@@ -35,10 +35,10 @@ namespace RepoClientGUI.ViewModels
             showFileTextCommand_ = new SubcribableCustomCommand<RepoFile>();
         }
 
-        public string CheckoutFolder
+        public string Category
         {
-            get { return checkoutFolder_; }
-            set { checkoutFolder_ = value; }
+            get { return category_; }
+            set { category_ = value; this.OnPropertyChanged("Category"); }
         }
 
         public bool DependenciesAreFetched
@@ -50,7 +50,7 @@ namespace RepoClientGUI.ViewModels
         public List<RepoPackage> RepoPackages
         {
             get { return repoPackages_; }
-            set { repoPackages_ = value; }
+            set { repoPackages_ = value; this.OnPropertyChanged("RepoPackages"); }
         }
         public List<RepoFile> RepoFiles
         {

@@ -32,12 +32,12 @@
         <Grid.RowDefinitions>
             <!-- ROW 0 : Title -->
             <RowDefinition Height="Auto" />
-            <!-- ROW 1 & 2 : Repository Contents -->
+            <!-- ROW 1 & 2 : Search Category -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!-- ROW 3 & 4 : Repository Contents -->
             <RowDefinition Height="Auto" />
             <RowDefinition Height="300" />
-            <!-- ROW 3 & 4 : Selection Preview Pane -->
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -51,11 +51,28 @@
                    Margin="20">Browse Repository Contents</TextBlock>
         <!-- /ROW 0 : Title -->
 
-        <!-- ROW 1 & 2 : Repository Contents -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+        <!-- ROW 1 & 2 : Search Category -->
+        <TextBlock Grid.Row="1" Grid.Column="0" 
+                   Style="{StaticResource subTitleStyle}"
+                   Margin="20,5,0,5">Category</TextBlock>
+        <TextBox Name="CategoryTextBox" Grid.Row="2" Grid.Column="0"
+                 Text="{Binding Path=BrowseProps.Category, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource regTextBoxStyle}"
+                 MaxLength="0" Width="260"
+                 HorizontalAlignment="Left"
+                 Margin="20,5,0,5"/>
+        <Button Name="SearchCategoryBtn" Grid.Row="2" Grid.Column="2"
+                HorizontalAlignment="Left" Content="Search"
+                Style="{StaticResource regBtnStyle}"
+                Margin="5,5,0,5"
+                Click="SearchCategoryBtn_Click" />
+        <!-- /ROW 1 & 2 : Search Category -->
+        
+        <!-- ROW 3 & 4 : Repository Contents -->
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                    Style="{StaticResource subTitleStyle}" 
                    Margin="20,5,0,5">Package Browser</TextBlock>
-        <ListBox x:Name="PackageListBox" Grid.Row="2" Grid.Column="0"
+        <ListBox x:Name="PackageListBox" Grid.Row="4" Grid.Column="0"
                  ItemsSource="{Binding Path=BrowseProps.RepoPackages, UpdateSourceTrigger=PropertyChanged}"
                  Margin="20 5" Width="Auto"
                  MouseDoubleClick="PackageListBox_MouseDoubleClick">
@@ -65,10 +82,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListView x:Name="SelectedFilesListView" Grid.Row="2" Grid.Column="1"
+        <ListView x:Name="SelectedFilesListView" Grid.Row="4" Grid.Column="1"
                   Style="{StaticResource repoFilesStyle}"
                   ItemsSource="{Binding Path=BrowseProps.RepoFiles, UpdateSourceTrigger=PropertyChanged}"
-                  Margin="20 5">
+                  Margin="5">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Filename" DisplayMemberBinding="{Binding Path=Filename}"
@@ -100,6 +117,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <!-- /ROW 1 & 2 : Repository Contents -->
+        <!-- /ROW 3 & 4 : Repository Contents -->
     </Grid>
 </UserControl>

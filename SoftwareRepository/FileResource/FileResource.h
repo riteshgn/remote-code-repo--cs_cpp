@@ -1,7 +1,7 @@
 #pragma once
 ///////////////////////////////////////////////////////////////////////
 // FileResource.h - Implements file-based repository resource        //
-// ver 1.0                                                           //
+// ver 1.1                                                           //
 // Language:    C++, Visual Studio 2017                              //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design  //
 // Author:      Ritesh Nair (rgnair@syr.edu)                         //
@@ -20,6 +20,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 01 May 2018
+* - added Author ID as member of FileResource
 * ver 1.0 : 24 Feb 2018
 * - first release
 */
@@ -53,6 +55,9 @@ namespace SoftwareRepository
 
         // methods to access private members
         
+        AuthorId& getAuthor() { return author_; }
+        AuthorId getAuthor() const { return author_; }
+
         Categories& getCategories() { return categories_; }
         Categories getCategories() const { return categories_; }
 
@@ -76,6 +81,10 @@ namespace SoftwareRepository
 
         // methods to set private member values
 
+        FileResource& setAuthor(AuthorId author) {
+            author_ = author;
+            return *this;
+        }
         FileResource& setCategory(Category);
         FileResource& setDependency(FileResource& res, ResourceVersion resourceVersion) {
             dependencies_.push_back(ResourceIdentityWithVersion(res.getIdentity(), resourceVersion));
@@ -112,6 +121,7 @@ namespace SoftwareRepository
         std::string toString() const;
 
     private:
+        AuthorId author_;
         Namespace ns_;
         ResourceName resourceName_;
         ResourceDescription description_;

@@ -28,6 +28,12 @@
                      IsSelected="{Binding Path=ActionTabsProps.ConnectTab.Selected, UpdateSourceTrigger=PropertyChanged}">
                 <partials:ConnectToRepoView />
             </TabItem>
+            <TabItem Header="{Binding Path=ActionTabsProps.BrowseTab.Header, UpdateSourceTrigger=PropertyChanged}"
+                     IsSelected="{Binding Path=ActionTabsProps.BrowseTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
+                     Visibility="{Binding Path=ServerConnProps.Connected, 
+                                          Converter={StaticResource boolToVisibiltyConverter}}">
+                <partials:BrowseView />
+            </TabItem>
             <TabItem Header="{Binding Path=ActionTabsProps.CheckInTab.Header, UpdateSourceTrigger=PropertyChanged}"
                      IsSelected="{Binding Path=ActionTabsProps.CheckInTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
                      Visibility="{Binding Path=ServerConnProps.Connected, 
@@ -39,12 +45,6 @@
                      Visibility="{Binding Path=ServerConnProps.Connected, 
                                           Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:CheckOutView />
-            </TabItem>
-            <TabItem Header="{Binding Path=ActionTabsProps.BrowseTab.Header, UpdateSourceTrigger=PropertyChanged}"
-                     IsSelected="{Binding Path=ActionTabsProps.BrowseTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
-                     Visibility="{Binding Path=ServerConnProps.Connected, 
-                                          Converter={StaticResource boolToVisibiltyConverter}}">
-                <partials:BrowseView />
             </TabItem>
         </TabControl>
         <!-- /ROW 0 : Tabs -->

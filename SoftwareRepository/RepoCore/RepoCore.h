@@ -30,6 +30,7 @@
 * --------------------
 * ver 1.1 : 30 Apr 2018
 * - added backup and restore functionality
+* - browsing with filters (query builders)
 * ver 1.0 : 23 Feb 2018
 * - first release
 */
@@ -59,6 +60,8 @@ namespace SoftwareRepository
         using FileResources = std::vector<FileResource>;
         using ResultProcessor = IBrowserResultProcessor<FileResource>;
         using ResultProcessors = BrowseResultProcessors<ResultProcessor>;
+        using Filter = IBrowserFilter<FileResourcePayload>;
+        using Filters = BrowseFilters<Filter>;
 
         RepoCore(IVersionMgr *pVersionMgr, 
             IResourcePropertiesDb<FileResource, FileResourcePayload> *pPropsDb,
@@ -69,10 +72,8 @@ namespace SoftwareRepository
             checkInMgr_(pVersionMgr, pPropsDb, pStore),
             checkOutMgr_(pPropsDb, pStore) {}
 
-        bool browse(FileResource, 
-            BrowseResultProcessors<IBrowserResultProcessor<FileResource>> = {});
-        bool browse(FileResource, ResourceVersion, 
-            BrowseResultProcessors<IBrowserResultProcessor<FileResource>> = {});
+        bool browse(Filters, ResultProcessors = {});
+        bool browse(FileResource, ResourceVersion, ResultProcessors = {});
 
         bool checkIn(FileResource, AuthorId, bool autoCommit = DEFAULT_AUTO_COMMIT);
 

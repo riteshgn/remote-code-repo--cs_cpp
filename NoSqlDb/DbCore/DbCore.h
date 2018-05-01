@@ -352,13 +352,13 @@ namespace NoSqlDb
     {
         out << "\n  ";
         out << std::setw(26) << std::left << "DateTime";
-        out << std::setw(17) << std::left << "Name";
-        out << std::setw(35) << std::left << "Description";
+        out << std::setw(25) << std::left << "Name";
+        out << std::setw(40) << std::left << "Description";
         out << std::setw(25) << std::left << "Payload";
         out << "\n  ";
         out << std::setw(26) << std::left << "------------------------";
-        out << std::setw(17) << std::left << "---------------";
-        out << std::setw(35) << std::left << "---------------------------------";
+        out << std::setw(25) << std::left << "-----------------------";
+        out << std::setw(40) << std::left << "-------------------------------------";
         out << std::setw(25) << std::left << "-----------------------";
     }
     //----< display DbElements >-----------------------------------------
@@ -368,8 +368,8 @@ namespace NoSqlDb
     {
         out << "\n  ";
         out << std::setw(26) << std::left << std::string(el.metadata().dateTime());
-        out << std::setw(17) << std::left << el.metadata().name();
-        out << std::setw(35) << std::left << el.metadata().descrip();
+        out << std::setw(25) << std::left << el.metadata().name().substr(0, 23);
+        out << std::setw(40) << std::left << el.metadata().descrip().substr(0, 38);
         out << std::setw(25) << std::left << el.payLoad();
         typename DbElementMetadata::Children children = el.metadata().children();
         if (children.size() > 0)

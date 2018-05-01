@@ -17,6 +17,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.2 : 01 May 2018
+* - Browse is the first tab that is displayed after successful connection
 * ver 1.1 : 26 Apr 2018
 * - implemented an exit button
 * - on successful connection tabs are switched to the check-in tab
@@ -84,7 +86,7 @@ namespace RepoClientGUI.Views.Partials
 
                 // switch tabs
                 state.ActionTabsProps.ConnectTab.Selected = false;
-                state.ActionTabsProps.CheckInTab.Selected = true;
+                state.ActionTabsProps.BrowseTab.Selected = true;
 
                 // disable connection text boxes
                 this.Dispatcher.Invoke(() => {

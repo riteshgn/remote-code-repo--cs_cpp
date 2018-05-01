@@ -111,7 +111,7 @@ namespace RepoClientGUI.Views.Partials
         private void RefreshPackageList()
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            state.ServerCommService.Requests.GetRepoPackages(state.ServerConnProps.UserId,
+            state.ServerCommService.Requests.GetRepoPackages("utility", state.ServerConnProps.UserId,
                 (GetRepoPackagesResponse response) => state.CheckOutProps.RepoPackages.AddRange(response.RepoPackages));
         }
 
