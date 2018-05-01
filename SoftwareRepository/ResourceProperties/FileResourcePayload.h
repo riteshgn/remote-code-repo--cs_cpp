@@ -131,6 +131,7 @@ namespace SoftwareRepository
         static FileResourcePayload fromXmlElement(NoSqlDb::IPayload<FileResourcePayload>::Sptr);
 
     private:
+
         AuthorId author_;
         State state_; // see: RESOURCE_STATE in RepoCoreDefinitions.h
         Categories categories_;
@@ -140,6 +141,12 @@ namespace SoftwareRepository
 
         std::string toString() const;
         std::string stringifyCategories() const;
+
+        static std::unordered_map<std::string, RESOURCE_STATE> reverseStateLookup() {
+            return {
+                { STATE_STRINGS[OPEN], OPEN },{ STATE_STRINGS[CLOSED], CLOSED },{ STATE_STRINGS[CLOSE_PENDING], CLOSE_PENDING }
+            };
+        }
     };
 }
 

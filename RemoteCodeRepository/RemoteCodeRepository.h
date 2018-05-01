@@ -65,6 +65,7 @@ namespace SoftwareRepository
         void startServer();
         void stopMessagesListenerThread();
         void stopServer();
+        void processMessages(RepoCore&);
     };
 
 }
