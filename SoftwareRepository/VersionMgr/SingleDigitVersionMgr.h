@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////
 // SingleDigitVersionMgr.h - Implements a single digit based versioning //
 //                           system                                     //
-// ver 1.0                                                              //
+// ver 1.1                                                              //
 // Language:    C++, Visual Studio 2017                                 //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design     //
 // Author:      Ritesh Nair (rgnair@syr.edu)                            //
@@ -19,6 +19,9 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - SingleDigitVersion implements the IPayload interface and can now be persisted
+* - added backup and restore functionality
 * ver 1.0 : 10 Mar 2018
 * - first release
 */
@@ -28,6 +31,8 @@
 
 #include "IVersionMgr.h"
 #include "../../NoSqlDb/DbCore/DbCore.h"
+#include "../../NoSqlDb/Payloads/IPayload.h"
+#include "../../NoSqlDb/Persistence/Persistence.h"
 
 namespace SoftwareRepository
 {
@@ -36,16 +41,28 @@ namespace SoftwareRepository
     // - payload for the NoSqlDb instance used by SingleDigitVersionMgr
     // - maintains the current version and owner information for a resource
 
-    class SingleDigitVersion
+    class SingleDigitVersion : public NoSqlDb::IPayload<SingleDigitVersion>
     {
     public:
         int getCurrentVersion() { return currentVersion_; }
         void setCurrentVersion(ResourceVersion version) { currentVersion_ = version; }
         AuthorId getAuthorId() { return authorId_; }
         void setAuthorId(AuthorId authorId) { authorId_ = authorId; }
+
+        friend std::ostream& operator<<(std::ostream& os, const SingleDigitVersion& payload)
+        {
+            return os << payload.toString();
+        };
+
+        virtual std::string toString() override { return toString(); }
+        virtual NoSqlDb::IPayload<SingleDigitVersion>::Sptr toXmlElement() override;
+        static SingleDigitVersion fromXmlElement(NoSqlDb::IPayload<SingleDigitVersion>::Sptr);
+
     private:
         ResourceVersion currentVersion_;
         AuthorId authorId_;
+
+        std::string toString() const;
     };
 
     /////////////////////////////////////////////////////////////////////
@@ -57,6 +74,8 @@ namespace SoftwareRepository
     class SingleDigitVersionMgr : public IVersionMgr
     {
     public:
+        SingleDigitVersionMgr() : persistence_(db_, "VersionMgr") {}
+
         virtual ResourceVersion getCurrentVersion(ResourceIdentity) override;
         virtual ResourceVersion getNextVersion(ResourceIdentity) override;
         virtual ResourceVersion incrementVersionAndSave(ResourceIdentity, AuthorId) override;
@@ -65,8 +84,12 @@ namespace SoftwareRepository
         ResourcePropsDbSize size() { return db_.size(); }
         void showKeys() { NoSqlDb::showKeys(db_); }
 
+        virtual void loadDb(const SourceLocation&) override;
+        virtual void saveDb(const SourceLocation&) override;
+
     private:
         NoSqlDb::DbCore<SingleDigitVersion> db_;
+        NoSqlDb::Persistence<SingleDigitVersion> persistence_;
     };
 }
 

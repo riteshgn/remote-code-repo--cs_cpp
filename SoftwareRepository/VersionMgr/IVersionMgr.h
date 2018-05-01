@@ -26,6 +26,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.2 : 30 Apr 2018
+* - added backup and restore functionality
 * ver 1.0 : 24 Feb 2018
 * - first release
 */
@@ -49,6 +51,8 @@ namespace SoftwareRepository
         virtual ResourceVersion incrementVersionAndSave(ResourceIdentity, AuthorId) = 0;
         virtual bool isValidVersion(ResourceIdentity, ResourceVersion) = 0;
         virtual bool hasPermission(ResourceIdentity, AuthorId, Action = DEFAULT_RESOURCE_MODIFY_ACTION) = 0;
+        virtual void loadDb(const SourceLocation&) = 0;
+        virtual void saveDb(const SourceLocation&) = 0;
     };
 }
 

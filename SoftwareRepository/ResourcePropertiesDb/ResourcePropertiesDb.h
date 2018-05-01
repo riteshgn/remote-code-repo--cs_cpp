@@ -2,7 +2,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // ResourcePropertiesDb.h - Implements the properties object and database  //
 //                          for holding the properties                     //
-// ver 1.1                                                                 //
+// ver 1.2                                                                 //
 // Language:    C++, Visual Studio 2017                                    //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design        //
 // Author:      Ritesh Nair (rgnair@syr.edu)                               //
@@ -25,6 +25,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.2 : 30 Apr 2018
+* - added backup and restore functionality
 * ver 1.1 : 23 Apr 2018
 * - removed resource properties and put it into its own package
 * ver 1.0 : 10 Mar 2018
@@ -38,6 +40,7 @@
 #include "../FileResource/FileResource.h"
 #include "../ResourceProperties/ResourceProperties.h"
 #include "../../NoSqlDb/DbCore/DbCore.h"
+#include "../../NoSqlDb/Persistence/Persistence.h"
 #include "../VersionMgr/IVersionMgr.h"
 #include "../RepoBrowser/RepoBrowser.h"
 #include "../RepoBrowser/ResultProcessors.h"
@@ -60,7 +63,7 @@ namespace SoftwareRepository
         using FileResources = std::vector<FileResource>;
 
         ResourcePropertiesDb(IVersionMgr *pVersionMgr) : 
-            pVersionMgr_(pVersionMgr), browser_(db_) {};
+            pVersionMgr_(pVersionMgr), browser_(db_), persistence_(db_, "ResourcePropertiesDb") {};
 
         virtual bool createEntry(FileResource, AuthorId) override;
         virtual bool exists(ResourceIdentity) override;
@@ -76,8 +79,12 @@ namespace SoftwareRepository
         virtual void showKeys() override { NoSqlDb::showKeys(db_); }
         virtual void showDb() override { NoSqlDb::showDb(db_); }
 
+        virtual void loadDb(const SourceLocation&) override;
+        virtual void saveDb(const SourceLocation&) override;
+
     private:
         NoSqlDb::DbCore<FileResourcePayload> db_;
+        NoSqlDb::Persistence<FileResourcePayload> persistence_;
         IVersionMgr *pVersionMgr_;
         RepoBrowser browser_;
         ConsoleResultProcessor consoleProcessor_;

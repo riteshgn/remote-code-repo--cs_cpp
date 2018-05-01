@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////
 // FileResourcePayload.h - Implements payload from a properties DB   //
 //                         which supports file-based storage         //
-// ver 1.0                                                           //
+// ver 1.1                                                           //
 // Language:    C++, Visual Studio 2017                              //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design  //
 // Author:      Ritesh Nair (rgnair@syr.edu)                         //
@@ -22,6 +22,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - implements the IPayload interface and can now be persisted
 * ver 1.0 : 24 Feb 2018
 * - first release
 */
@@ -31,6 +33,7 @@
 
 #include "../RepoCore/RepoCoreDefinitions.h"
 #include "../RepoUtilities/RepoUtilities.h"
+#include "../../NoSqlDb/Payloads/IPayload.h"
 
 #include <algorithm>
 
@@ -48,7 +51,7 @@ namespace SoftwareRepository
     //   - version      int
     // - provides API to remove a category
 
-    class FileResourcePayload
+    class FileResourcePayload : public NoSqlDb::IPayload<FileResourcePayload>
     {
     public:
         // methods to access payload's details
@@ -122,6 +125,10 @@ namespace SoftwareRepository
         {
             return os << payload.toString();
         };
+
+        virtual std::string toString() override { return toString(); }
+        virtual NoSqlDb::IPayload<FileResourcePayload>::Sptr toXmlElement() override;
+        static FileResourcePayload fromXmlElement(NoSqlDb::IPayload<FileResourcePayload>::Sptr);
 
     private:
         AuthorId author_;

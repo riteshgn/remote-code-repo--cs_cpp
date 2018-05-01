@@ -2,7 +2,7 @@
 ////////////////////////////////////////////////////////////////////////
 // RepoCoreDefinitions.h - Define aliases & constants used throughout //
 //                         the SoftwareRepository namespace           //
-// ver 1.0                                                            //
+// ver 1.1                                                            //
 // Language:    C++, Visual Studio 2017                               //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design   //
 // Author:      Ritesh Nair (rgnair@syr.edu)                          //
@@ -10,6 +10,8 @@
 /*
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - added list of state strings
 * ver 1.0 : 23 Feb 2018
 * - first release
 */
@@ -94,6 +96,7 @@ namespace SoftwareRepository
     const std::string NAMESPACE_FILENAME_SEPARATOR = "##";
     const FileStoreRoot DEFAULT_FILE_STORE_ROOT_FOLDER = "../Demo/repository";
     const std::vector<std::string> DEFAULT_SUPPORTED_FILETYPES = { "*.h", "*.cpp" };
+    const std::vector<std::string> STATE_STRINGS = { "Open", "Closed", "Closed (Pending)" };
 }
 
 #endif // !REPO_CORE_DEF_H

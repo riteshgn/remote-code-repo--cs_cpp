@@ -1,7 +1,7 @@
 #pragma once
 //////////////////////////////////////////////////////////////////////////
 // IResourcePropertiesDb.h - Defines the Properties DB interface        //
-// ver 1.1                                                              //
+// ver 1.2                                                              //
 // Language:    C++, Visual Studio 2017                                 //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design     //
 // Author:      Ritesh Nair (rgnair@syr.edu)                            //
@@ -19,6 +19,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.2 : 30 Apr 2018
+* - added backup and restore functionality
 * ver 1.1 : 23 Apr 2018
 * - removed resource properties and put it into its own package
 * ver 1.0 : 10 Mar 2018
@@ -58,6 +60,8 @@ namespace SoftwareRepository
         virtual ResourcePropsDbSize size() = 0;
         virtual void showKeys() = 0;
         virtual void showDb() = 0;
+        virtual void loadDb(const SourceLocation&) = 0;
+        virtual void saveDb(const SourceLocation&) = 0;
     };
 }
 

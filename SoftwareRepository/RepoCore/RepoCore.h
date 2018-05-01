@@ -1,7 +1,7 @@
 #pragma once
 ///////////////////////////////////////////////////////////////////////
 // RepoCore.h - Implements the Software repository prototype         //
-// ver 1.0                                                           //
+// ver 1.1                                                           //
 // Language:    C++, Visual Studio 2017                              //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design  //
 // Author:      Ritesh Nair (rgnair@syr.edu)                         //
@@ -28,6 +28,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 30 Apr 2018
+* - added backup and restore functionality
 * ver 1.0 : 23 Feb 2018
 * - first release
 */
@@ -80,6 +82,9 @@ namespace SoftwareRepository
         bool commit(ResourceIdentity, AuthorId);
 
         IResourceProperties<FileResourcePayload>& modify(ResourceIdentity, AuthorId);
+
+        void loadRepo(const SourceLocation&);
+        void saveRepo(const SourceLocation&);
 
         FailureReasons whyItFailed() { return reasons_; };
 

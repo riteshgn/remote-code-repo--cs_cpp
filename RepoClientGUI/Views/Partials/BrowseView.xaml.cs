@@ -26,6 +26,7 @@
 
 using RepoClientGUI.Services.RepoServerComm;
 using RepoClientGUI.ViewModels;
+using RepoClientGUI.Views.Popups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
