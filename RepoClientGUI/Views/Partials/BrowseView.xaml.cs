@@ -23,6 +23,8 @@
 * ver 1.1 : 30 Apr 2018
 * - fixed onload refresh packages issue
 * - packages are searched by provided category
+* - added provision to mark displayed files
+* - checkout selected files
 * ver 1.0 : 10 Apr 2018
 * - first release
 */
@@ -53,10 +55,24 @@ namespace RepoClientGUI.Views.Partials
     public partial class BrowseView : UserControl
     {
         private bool loaded_ = false;
+        private CheckOutFilesPopup checkOutFilesPopup_;
 
         public BrowseView()
         {
             InitializeComponent();
+        }
+
+        // ----< searches packages for entered category >--------------------
+        private void SearchCategoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RepoClientState state = (RepoClientState)this.DataContext;
+            if (String.IsNullOrEmpty(state.BrowseProps.Category))
+            {
+                MessageBox.Show("Category is mandatory", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            RefreshPackageList();
         }
 
         // ----< fetches file list from the server on double click of package >--------------------
@@ -112,10 +128,49 @@ namespace RepoClientGUI.Views.Partials
                     }, true);
             }
         }
-
-        private void SearchCategoryBtn_Click(object sender, RoutedEventArgs e)
+        
+        // ----< posts checkout request to the server on button click >--------------------
+        private void DownloadBtn_ClickAction(CheckOutProps props)
         {
-            RefreshPackageList();
+            checkOutFilesPopup_.Close();
+
+            RepoClientState state = (RepoClientState)this.DataContext;
+            foreach (RepoFile repoFile in state.BrowseProps.SelectionPreview)
+            {
+                state.ServerCommService.Requests.PostCheckOut(
+                    repoFile.PackageName,
+                    repoFile.Namespace,
+                    repoFile.Filename,
+                    repoFile.Version,
+                    state.CheckOutProps.DependenciesAreFetched,
+                    state.ServerConnProps.UserId,
+                    (CheckOutResponse response) =>
+                    {
+                        RepoFile.copyToDest(repoFile, state.CheckOutProps.CheckoutFolder);
+                        string message = $"Succesfully downloaded file '{repoFile.Filename}' " + 
+                            $"to {state.CheckOutProps.CheckoutFolder}";
+                        MessageBox.Show(message, "Check-Out");
+                    },
+                    true);
+            }
+        }
+
+
+        // ----< updates the selection preview when checkbox is checked >--------------------
+        private void RepoFile_Checked(object sender, RoutedEventArgs e)
+        {
+            RepoClientState state = (RepoClientState)this.DataContext;
+            state.BrowseProps.UpdateSelectionPreview();
+        }
+
+        // ----< pop-up the checkout window >--------------------
+        private void CheckoutSelectionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            checkOutFilesPopup_ = new CheckOutFilesPopup
+            {
+                DataContext = (RepoClientState)this.DataContext
+            };
+            checkOutFilesPopup_.Show();
         }
 
         // ----< actions to be performed when the view is loaded >--------------------
@@ -130,6 +185,7 @@ namespace RepoClientGUI.Views.Partials
                 // corresponding actions to be performed
                 state.BrowseProps.ShowMetadataCommand.Subscribe(MetadataLink_ClickAction);
                 state.BrowseProps.ShowFileTextCommand.Subscribe(FileTextLink_ClickAction);
+                state.CheckOutProps.DownloadRequestCommand.Subscribe(DownloadBtn_ClickAction);
 
                 state.BrowseProps.Category = "utility";
                 //DemoBrowse();

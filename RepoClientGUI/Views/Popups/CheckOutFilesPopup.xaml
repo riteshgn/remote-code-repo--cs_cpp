@@ -1,0 +1,54 @@
+﻿<Window x:Class="RepoClientGUI.Views.Popups.CheckOutFilesPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RepoClientGUI.Views.Popups"
+        mc:Ignorable="d"
+        Title="Checkout Files" Height="205" Width="570">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- ROW 0 & 1 : Download Location -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!-- ROW 2 : Dependencies -->
+            <RowDefinition Height="Auto" />
+            <!-- ROW 3 : Submit -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ROW 0 & 1 : Download Location -->
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Style="{StaticResource subTitleStyle}" 
+                   Margin="25,15,0,5">Checkout Folder</TextBlock>
+        <WrapPanel Grid.Row="1" Grid.Column="0">
+            <TextBox x:Name="CheckOutFolderTextBox"
+                 Text="{Binding Path=CheckOutProps.CheckoutFolder, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource lgTextBoxStyle}"
+                 HorizontalAlignment="Left"
+                 Margin="25,5,0,5"/>
+            <Button Name="BrowseCheckOutFolderBtn"
+                    HorizontalAlignment="Right" Content="Browse"
+                    Style="{StaticResource regBtnStyle}"
+                    Margin="10,5,0,5"
+                    Click="BrowseCheckOutFolderBtn_Click"/>
+        </WrapPanel>
+        <!-- /ROW 0 & 1 : Download Location -->
+
+        <WrapPanel Grid.Row="2" Grid.Column="0" Margin="25,5,0,5">
+            <CheckBox IsChecked="{Binding Path=CheckOutProps.DependenciesAreFetched}" Margin="0 2"/>
+            <TextBlock Style="{StaticResource subTitleStyle}" Margin="5 0 0 0">Include Dependencies</TextBlock>
+        </WrapPanel>
+
+        <!-- ROW 3 : Submit -->
+        <!-- reference: https://www.codeproject.com/Tips/215457/How-to-make-Button-Enable-Disable-depends-on-a-Tex -->
+        <Button Name="DownloadBtn" Grid.Row="3" Grid.Column="0"
+                HorizontalAlignment="Left" Content="Download"
+                Style="{StaticResource regBtnStyle}"
+                Margin="25,15,0,5" IsEnabled="{Binding ElementName=CheckOutFolderTextBox, 
+                                                      Path=Text.Length, Mode=OneWay}"
+                Command="{Binding Path=CheckOutProps.DownloadRequestCommand}">
+        </Button>
+        <!-- /ROW 3 : Submit -->
+    </Grid>
+</Window>

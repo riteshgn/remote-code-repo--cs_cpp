@@ -100,6 +100,7 @@ namespace RepoClientGUI.Views.Partials
             }
         }
 
+        // ----< setup the browse folder dialog >--------------------
         private void SetupBrowsePkgDialog()
         {
             this.browsePkgFolderDialog = new System.Windows.Forms.FolderBrowserDialog {

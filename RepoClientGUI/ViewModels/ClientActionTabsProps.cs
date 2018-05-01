@@ -18,14 +18,12 @@ namespace RepoClientGUI.ViewModels
     {
         private ActionTab connectTab_;
         private ActionTab checkinTab_;
-        private ActionTab checkoutTab_;
         private ActionTab browseTab_;
 
         public ClientActionTabsProps()
         {
             connectTab_ = new ActionTab("Connect", true);
             checkinTab_ = new ActionTab("Check In", false);
-            checkoutTab_ = new ActionTab("Check Out", false);
             browseTab_ = new ActionTab("Browse", false);
         }
 
@@ -39,12 +37,6 @@ namespace RepoClientGUI.ViewModels
         {
             get { return checkinTab_; }
             set { checkinTab_ = value; }
-        }
-
-        public ActionTab CheckOutTab
-        {
-            get { return checkoutTab_; }
-            set { checkoutTab_ = value; }
         }
 
         public ActionTab BrowseTab

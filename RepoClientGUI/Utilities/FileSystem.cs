@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////////
 // FileSystem.cs - Utility functions for interacting with File System  //
-// ver 1.0                                                             //
+// ver 1.1                                                             //
 // Language:    C#, Visual Studio 2017                                 //
 // Application: SoftwareRepository, CSE687 - Object Oriented Design    //
 // Author:      Ritesh Nair (rgnair@syr.edu)                           //
@@ -10,6 +10,7 @@
 * -------------------
 * This package provides below APIs for helping with file-based IO
 * - CopyFile
+* - CreateDirectory
 * - GetDirectoryName
 * - GetFilesInDirectory
 * - GetFileText
@@ -20,6 +21,8 @@
 *
 * Maintenance History:
 * --------------------
+* ver 1.1 : 01 May 2018
+* - added API to create Diretcory
 * ver 1.0 : 26 Apr 2018
 * - first release
 */
@@ -35,6 +38,17 @@ namespace RepoClientGUI.Utilities
 {
     public class FileSystem
     {
+        // ----< creates the specified directory >--------------------
+        /*
+         * Note: Will create all intermediate paths. And if directory already exists then does nothing
+         */
+        public static string CreateDirectory(string destFolderPath, string rootPath = "")
+        {
+            string finalPath = Path.Combine(rootPath, destFolderPath);
+            Directory.CreateDirectory(finalPath);
+            return finalPath;
+        }
+
         // ----< copies file from source to destination >--------------------
         /*
          * Note: Will override file in destination if file with same name exists in destination

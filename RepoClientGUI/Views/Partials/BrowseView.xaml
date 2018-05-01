@@ -26,6 +26,37 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="ListBox" x:Key="selectionPreviewStyle" BasedOn="{StaticResource {x:Type ListBox}}">
+            <Style.Triggers>
+                <DataTrigger
+                        Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}"
+                        Value="0">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBlock FontStyle="Italic" FontSize="14" Foreground="#0D47A1">
+                                    - No files have been selected -
+                                </TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="browseViewBtnStyle" TargetType="Button">
+            <Setter Property="Width" Value="180" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding BrowseProps.SelectionPreview.Count}" Value="0">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid Width="750">
@@ -37,11 +68,16 @@
             <RowDefinition Height="Auto" />
             <!-- ROW 3 & 4 : Repository Contents -->
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="300" />
+            <RowDefinition Height="200" />
+            <!-- ROW 5 & 6 : Selection Preview Pane -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
+            <!-- ROW 7 : Selection Options -->
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -58,7 +94,7 @@
         <TextBox Name="CategoryTextBox" Grid.Row="2" Grid.Column="0"
                  Text="{Binding Path=BrowseProps.Category, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource regTextBoxStyle}"
-                 MaxLength="0" Width="260"
+                 MaxLength="0" Width="211"
                  HorizontalAlignment="Left"
                  Margin="20,5,0,5"/>
         <Button Name="SearchCategoryBtn" Grid.Row="2" Grid.Column="2"
@@ -92,10 +128,10 @@
                                     Width="195"></GridViewColumn>
                     <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Path=Version}"
                                     Width="50"></GridViewColumn>
-                    <GridViewColumn Header="View" Width="155">
+                    <GridViewColumn Header="View" Width="130">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <WrapPanel>
+                                <WrapPanel HorizontalAlignment="Center">
                                     <TextBlock Text="  "></TextBlock>
                                     <TextBlock>
                                         <!-- reference : https://stackoverflow.com/a/5122377 -->
@@ -114,9 +150,47 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Header="Mark" Width="45">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=RepoFileMarked}" 
+                                        Checked="RepoFile_Checked" Unchecked="RepoFile_Checked"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
         <!-- /ROW 3 & 4 : Repository Contents -->
+
+        <!-- ROW 5 & 6 : Selection Preview Pane -->
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                   Style="{StaticResource subTitleStyle}" 
+                   Margin="20,5,0,5">Selection Preview</TextBlock>
+        <ListBox x:Name="SelectionListBox" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                 Style="{StaticResource selectionPreviewStyle}"
+                 ItemsSource="{Binding Path=BrowseProps.SelectionPreview, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="20 5" Width="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Path=PackageName}" />
+                        <TextBlock Text="    "/>
+                        <TextBlock Text="{Binding Path=Filename}"/>
+                        <TextBlock Text="    v"/>
+                        <TextBlock Text="{Binding Path=Version}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!-- /ROW 5 & 6 : /Selection Preview Pane -->
+
+        <!-- ROW 7 : Selection Options -->
+        <Button Name="CheckoutSelectionBtn" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                Content="Checkout Selected Files"
+                Style="{StaticResource browseViewBtnStyle}"
+                Margin="20,5,33,5"
+                Click="CheckoutSelectionBtn_Click" />
+        <!-- /ROW 7 : Selection Options -->
     </Grid>
 </UserControl>

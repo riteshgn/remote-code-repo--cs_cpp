@@ -87,5 +87,12 @@ namespace RepoClientGUI.ViewModels
         {
             return FileSystem.GetFileText($"../SaveFiles/{filename}");
         }
+
+        // ----< loads the contents of the file from disk  >--------------------
+        public static bool copyToDest(RepoFile repoFile, string destFolder)
+        {
+            string packageFolder = FileSystem.CreateDirectory(repoFile.PackageName, destFolder);
+            return FileSystem.CopyFile($"../SaveFiles/{repoFile.Filename}", packageFolder);
+        }
     }
 }

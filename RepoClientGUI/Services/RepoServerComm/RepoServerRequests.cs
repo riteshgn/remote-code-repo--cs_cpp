@@ -252,8 +252,8 @@ namespace RepoClientGUI.Services.RepoServerComm
         }
 
         public void PostCheckOut(String package, String ns, String filename,
-            int version, String userId, Action<CheckOutResponse> action,
-            bool verbose = false)
+            int version, bool withDep, String userId, 
+            Action<CheckOutResponse> action, bool verbose = false)
         {
             string uniqueId = GetUniqueId();
             dispatcher_[uniqueId] = (CsMessage response) => {
@@ -273,6 +273,8 @@ namespace RepoClientGUI.Services.RepoServerComm
             msg.add("namespace", ns);
             msg.add("filename", filename);
             msg.add("version", version.ToString());
+            if (withDep)
+                msg.add("include-deps", "true");
             translater_.postMessage(msg);
         }
 

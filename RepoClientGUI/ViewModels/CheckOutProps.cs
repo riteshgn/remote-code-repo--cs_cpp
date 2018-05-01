@@ -6,6 +6,7 @@
 // Author:      Ritesh Nair (rgnair@syr.edu)                                   //
 /////////////////////////////////////////////////////////////////////////////////
 
+using RepoClientGUI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,58 +19,29 @@ namespace RepoClientGUI.ViewModels
     {
         private string checkoutFolder_;
         private bool dependenciesAreFetched_;
-        private List<RepoPackage> repoPackages_;
-        private List<RepoFile> repoFiles_;
-        private List<RepoFile> selectionPreview_;
+        private SubcribableCustomCommand<CheckOutProps> downloadRequestCommand_;
 
         public CheckOutProps()
         {
-            repoPackages_ = new List<RepoPackage>();
-            repoFiles_ = new List<RepoFile>();
-            selectionPreview_ = new List<RepoFile>();
+            dependenciesAreFetched_ = true;
+            downloadRequestCommand_ = new SubcribableCustomCommand<CheckOutProps>();
         }
 
         public string CheckoutFolder
         {
             get { return checkoutFolder_; }
-            set { checkoutFolder_ = value; }
+            set { checkoutFolder_ = value; this.OnPropertyChanged("CheckoutFolder"); }
         }
 
         public bool DependenciesAreFetched
         {
             get { return dependenciesAreFetched_; }
-            set { dependenciesAreFetched_ = value; }
+            set { dependenciesAreFetched_ = value; this.OnPropertyChanged("DependenciesAreFetched"); }
         }
 
-        public List<RepoPackage> RepoPackages
+        public SubcribableCustomCommand<CheckOutProps> DownloadRequestCommand
         {
-            get { return repoPackages_; }
-            set { repoPackages_ = value; }
-        }
-        public List<RepoFile> RepoFiles
-        {
-            get { return repoFiles_; }
-            set { repoFiles_ = value; this.OnPropertyChanged("RepoFiles"); }
-        }
-
-        public List<RepoFile> SelectionPreview
-        {
-            get { return selectionPreview_; }
-            set { selectionPreview_ = value; this.OnPropertyChanged("SelectionPreview"); }
-        }
-
-        public void UpdateSelectionPreview()
-        {
-            List<RepoFile> selections = new List<RepoFile>();
-            foreach (RepoPackage pkg in repoPackages_)
-            {
-                if (pkg.RepoFiles != null)
-                {
-                    List<RepoFile> pkgSelections = pkg.RepoFiles.Where(file => file.RepoFileMarked).ToList();
-                    selections.AddRange(pkgSelections);
-                }
-            }
-            SelectionPreview = selections;
+            get { return downloadRequestCommand_; }
         }
     }
 }

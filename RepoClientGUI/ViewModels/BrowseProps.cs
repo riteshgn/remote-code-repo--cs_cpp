@@ -22,6 +22,7 @@ namespace RepoClientGUI.ViewModels
         private List<RepoPackage> repoPackages_;
         private List<RepoFile> repoFiles_;
         private RepoFile selectedRepoFile_;
+        private List<RepoFile> selectionPreview_;
         private Dictionary<string, RepoFileMetadata> metadataDict_;
         private SubcribableCustomCommand<RepoFile> showMetadataCommand_;
         private SubcribableCustomCommand<RepoFile> showFileTextCommand_;
@@ -30,6 +31,7 @@ namespace RepoClientGUI.ViewModels
         {
             repoPackages_ = new List<RepoPackage>();
             repoFiles_ = new List<RepoFile>();
+            selectionPreview_ = new List<RepoFile>();
             metadataDict_ = new Dictionary<string, RepoFileMetadata>();
             showMetadataCommand_ = new SubcribableCustomCommand<RepoFile>();
             showFileTextCommand_ = new SubcribableCustomCommand<RepoFile>();
@@ -62,6 +64,26 @@ namespace RepoClientGUI.ViewModels
         {
             get { return selectedRepoFile_; }
             set { selectedRepoFile_ = value; }
+        }
+
+        public List<RepoFile> SelectionPreview
+        {
+            get { return selectionPreview_; }
+            set { selectionPreview_ = value; this.OnPropertyChanged("SelectionPreview"); }
+        }
+
+        public void UpdateSelectionPreview()
+        {
+            List<RepoFile> selections = new List<RepoFile>();
+            foreach (RepoPackage pkg in repoPackages_)
+            {
+                if (pkg.RepoFiles != null)
+                {
+                    List<RepoFile> pkgSelections = pkg.RepoFiles.Where(file => file.RepoFileMarked).ToList();
+                    selections.AddRange(pkgSelections);
+                }
+            }
+            SelectionPreview = selections;
         }
 
         public Dictionary<string, RepoFileMetadata> MetadataDict

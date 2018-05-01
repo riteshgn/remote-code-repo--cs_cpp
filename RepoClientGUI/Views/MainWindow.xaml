@@ -6,7 +6,7 @@
         xmlns:partials="clr-namespace:RepoClientGUI.Views.Partials"
         xmlns:converters="clr-namespace:RepoClientGUI.Converters"
         mc:Ignorable="d"
-        Title="Repository Client" Height="575" Width="800"
+        Title="Repository Client" Height="650" Width="800"
         Loaded="MainWindow_Loaded">
 
     <Window.Resources>
@@ -39,12 +39,6 @@
                      Visibility="{Binding Path=ServerConnProps.Connected, 
                                           Converter={StaticResource boolToVisibiltyConverter}}">
                 <partials:CheckInView />
-            </TabItem>
-            <TabItem Header="{Binding Path=ActionTabsProps.CheckOutTab.Header, UpdateSourceTrigger=PropertyChanged}"
-                     IsSelected="{Binding Path=ActionTabsProps.CheckOutTab.Selected, UpdateSourceTrigger=PropertyChanged}" 
-                     Visibility="{Binding Path=ServerConnProps.Connected, 
-                                          Converter={StaticResource boolToVisibiltyConverter}}">
-                <partials:CheckOutView />
             </TabItem>
         </TabControl>
         <!-- /ROW 0 : Tabs -->

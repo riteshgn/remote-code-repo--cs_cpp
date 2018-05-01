@@ -26,8 +26,8 @@
 * Maintenance History:
 * --------------------
 * ver 1.1 : 30 Apr 2018
-* - message handlers use repocore for browsing packages, package files, file metadata
-*   and file text
+* - message handlers use repocore for browsing packages, package files, file metadata,
+*   file text and checkout
 * ver 1.0 : 28 Apr 2018
 * - first release
 */
@@ -103,13 +103,25 @@ namespace SoftwareRepository
         static HandlerFn checkOut()
         {
             return [](Message& message, RepoCore& repo) {
+                FileResource res(message.value("namespace"), message.value("filename"));
+                ResourceVersion version = std::stoi(message.value("version"));
+                std::string sourceFilename = FileSystemStore::getFilenameForSave(res.getIdentity(), version);
+                std::string sourceFilePath = FileSystem::Path::getFullFileSpec(
+                    DEFAULT_FILE_STORE_ROOT_FOLDER + '\\' + sourceFilename);
+                std::string destFilename = res.getResourceName();
+                std::string destPath = FileSystem::Path::getFullFileSpec("../SendFiles/" + destFilename);
+
+                FileSystem::File::copy(sourceFilePath, destPath);
+
                 Message reply;
                 reply.to(message.from());
                 reply.from(message.to());
                 if (message.containsKey("requestId"))
                     reply.attribute("responseId", message.value("requestId"));
-                //reply.file("Logger.h");
                 reply.attribute("success", "true");
+
+                reply.file(destFilename);
+
                 return reply;
             };
         }
@@ -172,32 +184,7 @@ namespace SoftwareRepository
 
         static HandlerFn getFileMetadata()
         {
-            return [](Message& message, RepoCore& repo) {
-                FileResource res(message.value("namespace"), message.value("filename"));
-                ResourceVersion version = std::stoi(message.value("version"));
-                FileMetadataProcessor metadataProcessor;
-                repo.browse(res, version, { metadataProcessor });
-
-                Message reply;
-                reply.to(message.from());
-                reply.from(message.to());
-                if (message.containsKey("requestId"))
-                    reply.attribute("responseId", message.value("requestId"));
-
-                std::string ns = message.value("namespace");
-                std::string filename = message.value("filename");
-
-                reply.attribute("author", metadataProcessor.getAuthor());
-                reply.attribute("description", metadataProcessor.getDescription());
-                int count = 1;
-                for (std::string depFilename : metadataProcessor.getDependencies())
-                {
-                    reply.attribute("dependency-" + std::to_string(count), depFilename);
-                    count++;
-                }
-
-                return reply;
-            };
+            return checkOut();
         }
 
         // ----< handles requests to send given file's content >--------------------
