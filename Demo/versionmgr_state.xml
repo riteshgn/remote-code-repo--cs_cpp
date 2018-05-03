@@ -2,102 +2,6 @@
   <shard name="VersionMgr">
     <record>
       <key>
-        NoSqlDb##TestQuery.h
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Tue May  1 16:19:41 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            2
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        NoSqlDb##Query.h
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Tue May  1 16:19:40 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            2
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        FileSystem##FileSystem.cpp
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Tue May  1 01:02:29 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            1
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        TestUtilities##TestUtilities.cpp
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Tue May  1 01:00:29 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            1
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
         SoftwareRepository##FileSystemStore.h
       </key>
       <value>
@@ -170,7 +74,79 @@
     </record>
     <record>
       <key>
-        FileSystem##FileSystem.h
+        TestUtilities##TestUtilities.cpp
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:00:29 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##TestQuery.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:41 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##Query.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:40 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        FileSystem##FileSystem.cpp
       </key>
       <value>
         <metadata>
@@ -204,6 +180,30 @@
           </description>
           <datetime>
             Tue May  1 01:00:29 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            1
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        FileSystem##FileSystem.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 01:02:29 2018
           </datetime>
         </metadata>
         <payload>
@@ -362,7 +362,7 @@
     </record>
     <record>
       <key>
-        NoSqlDb##TestDbCore.h
+        NoSqlDb##DbCore.h
       </key>
       <value>
         <metadata>
@@ -371,7 +371,7 @@
           <description>
           </description>
           <datetime>
-            Tue May  1 16:18:36 2018
+            Tue May  1 16:18:35 2018
           </datetime>
         </metadata>
         <payload>
@@ -386,7 +386,7 @@
     </record>
     <record>
       <key>
-        NoSqlDb##DbCore.h
+        NoSqlDb##TestDbCore.h
       </key>
       <value>
         <metadata>
@@ -395,7 +395,7 @@
           <description>
           </description>
           <datetime>
-            Tue May  1 16:18:35 2018
+            Tue May  1 16:18:36 2018
           </datetime>
         </metadata>
         <payload>
@@ -434,30 +434,6 @@
     </record>
     <record>
       <key>
-        SoftwareRepository##RepoStore.cpp
-      </key>
-      <value>
-        <metadata>
-          <name>
-          </name>
-          <description>
-          </description>
-          <datetime>
-            Tue May  1 16:21:23 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <currentVersion>
-            1
-          </currentVersion>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
         NoSqlDb##DbCore.cpp
       </key>
       <value>
@@ -482,7 +458,7 @@
     </record>
     <record>
       <key>
-        NoSqlDb##TestPersistence.h
+        SoftwareRepository##RepoStore.cpp
       </key>
       <value>
         <metadata>
@@ -491,7 +467,7 @@
           <description>
           </description>
           <datetime>
-            Tue May  1 16:19:09 2018
+            Tue May  1 16:21:23 2018
           </datetime>
         </metadata>
         <payload>
@@ -499,7 +475,7 @@
             rgnair
           </author>
           <currentVersion>
-            2
+            1
           </currentVersion>
         </payload>
       </value>
@@ -516,6 +492,30 @@
           </description>
           <datetime>
             Tue May  1 16:19:08 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <currentVersion>
+            2
+          </currentVersion>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##TestPersistence.h
+      </key>
+      <value>
+        <metadata>
+          <name>
+          </name>
+          <description>
+          </description>
+          <datetime>
+            Tue May  1 16:19:09 2018
           </datetime>
         </metadata>
         <payload>

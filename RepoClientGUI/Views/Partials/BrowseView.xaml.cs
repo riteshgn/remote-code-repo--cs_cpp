@@ -229,7 +229,10 @@ namespace RepoClientGUI.Views.Partials
                 state.CheckOutProps.DownloadRequestCommand.Subscribe(DownloadBtn_ClickAction);
 
                 state.BrowseProps.Category = "utility";
-                //DemoBrowse();
+                DemoCheckOut();
+                DemoGetPackageFiles();
+                DemoGetFileText();
+                DemoGetFileMetatada();
             }
             
             if (state.ServerConnProps.Connected)
@@ -240,8 +243,11 @@ namespace RepoClientGUI.Views.Partials
         private void RefreshPackageList()
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            state.ServerCommService.Requests.GetRepoPackages(state.BrowseProps.Category, state.ServerConnProps.UserId,
-                (GetRepoPackagesResponse response) => state.BrowseProps.RepoPackages = response.RepoPackages);
+            state.ServerCommService.Requests.GetRepoPackages(
+                state.BrowseProps.Category, 
+                state.ServerConnProps.UserId,
+                (GetRepoPackagesResponse response) => state.BrowseProps.RepoPackages = response.RepoPackages,
+                true);
         }
 
         // ----< displays a message box with the metadata information of selected file >--------------------
@@ -259,52 +265,56 @@ namespace RepoClientGUI.Views.Partials
             fileMetadataPopup.Show();
         }
 
-        // ----< demonstrates req #3d - browse: fetching packages >--------------------
-        private void DemoBrowse()
+        // ----< demonstrates req #3c - checkout >--------------------
+        private void DemoCheckOut()
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            state.ServerCommService.Requests.GetRepoPackages("utility", state.ServerConnProps.UserId,
-                (GetRepoPackagesResponse response) =>
-                {
-                    Console.WriteLine($"\n\n{new String('-', 60)}");
-                    Console.WriteLine($"  Demonstrating Requirement #3d - Browse: Fetch Packages");
-                    Console.WriteLine($"{new String('-', 60)}\n");
-                    Console.WriteLine($"    > Fetch for requestId [{response.RequestId}] succeeded");
-                    Console.WriteLine($"    > Found {response.RepoPackages.Count()} packages");
-                    response.RepoPackages.ForEach((RepoPackage pkg) => Console.WriteLine($"      > {pkg.PackageName}"));
-                    Console.WriteLine($"\n  Test Passed\n");
-                    state.BrowseProps.RepoPackages.AddRange(response.RepoPackages);
-
-                    foreach (RepoPackage pkg in state.BrowseProps.RepoPackages)
+            RepoFile repoFile = new RepoFile {
+                PackageName = "Process",
+                Namespace = "Process",
+                Filename = "Process.h",
+                Version = 1
+            };
+            state.ServerCommService.Requests.PostCheckOut(
+                    repoFile.PackageName,
+                    repoFile.Namespace,
+                    repoFile.Filename,
+                    repoFile.Version,
+                    false,
+                    state.ServerConnProps.UserId,
+                    (CheckOutResponse response) =>
                     {
-                        DemoGetPackageFiles(pkg, state);
-                    }
-
-                    DemoGetFileText(state);
-                    DemoGetFileMetatada(state);
-                }, true);
+                        Console.WriteLine($"\n\n{new String('-', 60)}");
+                        Console.WriteLine("  Demonstrating Requirement #3c - Check-Out");
+                        Console.WriteLine($"{new String('-', 60)}\n");
+                        Console.WriteLine($"    > Check-Out requestId [{response.RequestId}] succeeded");
+                        Console.WriteLine($"    > Server responded to request with status success: {response.Success}");
+                        Console.WriteLine($"\n  Test Passed\n");
+                    },
+                    true);
         }
 
         // ----< demonstrates req #3d - browse: fetching files >--------------------
-        private void DemoGetPackageFiles(RepoPackage pkg, RepoClientState state)
+        private void DemoGetPackageFiles()
         {
-            state.ServerCommService.Requests.GetPackageFiles(pkg.PackageName,
+            RepoClientState state = (RepoClientState)this.DataContext;
+            state.ServerCommService.Requests.GetPackageFiles("FileSystemDemo",
                 state.ServerConnProps.UserId, (GetPackageFilesResponse res) =>
                 {
                     Console.WriteLine($"\n\n{new String('-', 60)}");
                     Console.WriteLine($"  Demonstrating Requirement #3d - Browse: Fetch Files");
                     Console.WriteLine($"{new String('-', 60)}\n");
                     Console.WriteLine($"    > Fetch for requestId [{res.RequestId}] succeeded");
-                    Console.WriteLine($"    > Found {res.RepoFiles.Count()} files for package '{pkg.PackageName}'");
+                    Console.WriteLine($"    > Found {res.RepoFiles.Count()} files for package 'FileSystemDemo'");
                     res.RepoFiles.ForEach((RepoFile repoFile) => Console.WriteLine($"      > {repoFile.Filename} v{repoFile.Version}"));
                     Console.WriteLine($"\n  Test Passed\n");
-                    pkg.RepoFiles = res.RepoFiles;
                 }, true);
         }
 
         // ----< demonstrates req #3e - view file text >--------------------
-        private void DemoGetFileText(RepoClientState state)
+        private void DemoGetFileText()
         {
+            RepoClientState state = (RepoClientState)this.DataContext;
             state.ServerCommService.Requests.GetFileText("RepoCore", "SoftwareRepository",
                 "RepoCore.h", 1, state.ServerConnProps.UserId,
                 (GetFileTextResponse fileTextRes) => {
@@ -321,8 +331,9 @@ namespace RepoClientGUI.Views.Partials
         }
 
         // ----< demonstrates req #3f - view file metadata >--------------------
-        private void DemoGetFileMetatada(RepoClientState state)
+        private void DemoGetFileMetatada()
         {
+            RepoClientState state = (RepoClientState)this.DataContext;
             state.ServerCommService.Requests.GetFileMetadata("RepoCore", "SoftwareRepository",
                 "RepoCore.h", 1, state.ServerConnProps.UserId,
                 (GetFileMetadataResponse metadataRes) => {

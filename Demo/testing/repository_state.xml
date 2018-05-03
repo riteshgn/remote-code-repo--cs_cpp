@@ -1,0 +1,43 @@
+
+  <shard name="ResourcePropertiesDb">
+    <record>
+      <key>
+        Process##Process.h#1
+      </key>
+      <value>
+        <metadata>
+          <name>
+            Process.h
+          </name>
+          <description>
+            Spawn new process
+          </description>
+          <datetime>
+            Tue May  1 01:04:13 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            jfawcett
+          </author>
+          <state>
+            Open
+          </state>
+          <namespace>
+            Process
+          </namespace>
+          <package>
+            Process
+          </package>
+          <version>
+            1
+          </version>
+          <categories>
+            <category>
+              executives
+            </category>
+          </categories>
+        </payload>
+      </value>
+    </record>
+  </shard>

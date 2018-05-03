@@ -2,174 +2,6 @@
   <shard name="ResourcePropertiesDb">
     <record>
       <key>
-        NoSqlDb##TestQuery.h#1
-      </key>
-      <value>
-        <metadata>
-          <name>
-            TestQuery.h
-          </name>
-          <description>
-            Implements the query APIs for NoSqlDb
-          </description>
-          <datetime>
-            Tue May  1 16:19:41 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <state>
-            Closed
-          </state>
-          <namespace>
-            NoSqlDb
-          </namespace>
-          <package>
-            Query
-          </package>
-          <version>
-            1
-          </version>
-          <categories>
-            <category>
-              nosqldb
-            </category>
-          </categories>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        NoSqlDb##Query.h#1
-      </key>
-      <value>
-        <metadata>
-          <name>
-            Query.h
-          </name>
-          <description>
-            Implements the query APIs for NoSqlDb
-          </description>
-          <datetime>
-            Tue May  1 16:19:40 2018
-          </datetime>
-          <relationships>
-            <childkey>
-              NoSqlDb##DbCore.h#1
-            </childkey>
-            <childkey>
-              NoSqlDb##DbCore.cpp#1
-            </childkey>
-          </relationships>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <state>
-            Closed
-          </state>
-          <namespace>
-            NoSqlDb
-          </namespace>
-          <package>
-            Query
-          </package>
-          <version>
-            1
-          </version>
-          <categories>
-            <category>
-              nosqldb
-            </category>
-          </categories>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        FileSystem##FileSystem.cpp#1
-      </key>
-      <value>
-        <metadata>
-          <name>
-            FileSystem.cpp
-          </name>
-          <description>
-            Utility functions for File I/O
-          </description>
-          <datetime>
-            Tue May  1 01:02:29 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            jfawcett
-          </author>
-          <state>
-            Closed
-          </state>
-          <namespace>
-            FileSystem
-          </namespace>
-          <package>
-            FileSystemDemo
-          </package>
-          <version>
-            1
-          </version>
-          <categories>
-            <category>
-              utility
-            </category>
-          </categories>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
-        TestUtilities##TestUtilities.cpp#1
-      </key>
-      <value>
-        <metadata>
-          <name>
-            TestUtilities.cpp
-          </name>
-          <description>
-            Makes Testing Easy
-          </description>
-          <datetime>
-            Tue May  1 01:00:29 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            jfawcett
-          </author>
-          <state>
-            Closed
-          </state>
-          <namespace>
-            TestUtilities
-          </namespace>
-          <package>
-            TestUtilities
-          </package>
-          <version>
-            1
-          </version>
-          <categories>
-            <category>
-              utility
-            </category>
-          </categories>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
         SoftwareRepository##FileSystemStore.h#1
       </key>
       <value>
@@ -303,33 +135,147 @@
     </record>
     <record>
       <key>
-        FileSystem##FileSystem.h#1
+        TestUtilities##TestUtilities.cpp#1
       </key>
       <value>
         <metadata>
           <name>
-            FileSystem.h
+            TestUtilities.cpp
           </name>
           <description>
-            Utility functions to manipulate File I/O
+            Makes Testing Easy
+          </description>
+          <datetime>
+            Tue May  1 01:00:29 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            jfawcett
+          </author>
+          <state>
+            Closed
+          </state>
+          <namespace>
+            TestUtilities
+          </namespace>
+          <package>
+            TestUtilities
+          </package>
+          <version>
+            1
+          </version>
+          <categories>
+            <category>
+              utility
+            </category>
+          </categories>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##TestQuery.h#1
+      </key>
+      <value>
+        <metadata>
+          <name>
+            TestQuery.h
+          </name>
+          <description>
+            Implements the query APIs for NoSqlDb
+          </description>
+          <datetime>
+            Tue May  1 16:19:41 2018
+          </datetime>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <state>
+            Closed
+          </state>
+          <namespace>
+            NoSqlDb
+          </namespace>
+          <package>
+            Query
+          </package>
+          <version>
+            1
+          </version>
+          <categories>
+            <category>
+              nosqldb
+            </category>
+          </categories>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##Query.h#1
+      </key>
+      <value>
+        <metadata>
+          <name>
+            Query.h
+          </name>
+          <description>
+            Implements the query APIs for NoSqlDb
+          </description>
+          <datetime>
+            Tue May  1 16:19:40 2018
+          </datetime>
+          <relationships>
+            <childkey>
+              NoSqlDb##DbCore.h#1
+            </childkey>
+            <childkey>
+              NoSqlDb##DbCore.cpp#1
+            </childkey>
+          </relationships>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <state>
+            Closed
+          </state>
+          <namespace>
+            NoSqlDb
+          </namespace>
+          <package>
+            Query
+          </package>
+          <version>
+            1
+          </version>
+          <categories>
+            <category>
+              nosqldb
+            </category>
+          </categories>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        FileSystem##FileSystem.cpp#1
+      </key>
+      <value>
+        <metadata>
+          <name>
+            FileSystem.cpp
+          </name>
+          <description>
+            Utility functions for File I/O
           </description>
           <datetime>
             Tue May  1 01:02:29 2018
           </datetime>
-          <relationships>
-            <childkey>
-              TestUtilities##TestUtilities.h#1
-            </childkey>
-            <childkey>
-              TestUtilities##TestUtilities.cpp#1
-            </childkey>
-            <childkey>
-              Utilities##StringUtilities.h#1
-            </childkey>
-            <childkey>
-              Utilities##StringUtilities.cpp#1
-            </childkey>
-          </relationships>
         </metadata>
         <payload>
           <author>
@@ -383,6 +329,60 @@
           </namespace>
           <package>
             TestUtilities
+          </package>
+          <version>
+            1
+          </version>
+          <categories>
+            <category>
+              utility
+            </category>
+          </categories>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        FileSystem##FileSystem.h#1
+      </key>
+      <value>
+        <metadata>
+          <name>
+            FileSystem.h
+          </name>
+          <description>
+            Utility functions to manipulate File I/O
+          </description>
+          <datetime>
+            Tue May  1 01:02:29 2018
+          </datetime>
+          <relationships>
+            <childkey>
+              TestUtilities##TestUtilities.h#1
+            </childkey>
+            <childkey>
+              TestUtilities##TestUtilities.cpp#1
+            </childkey>
+            <childkey>
+              Utilities##StringUtilities.h#1
+            </childkey>
+            <childkey>
+              Utilities##StringUtilities.cpp#1
+            </childkey>
+          </relationships>
+        </metadata>
+        <payload>
+          <author>
+            jfawcett
+          </author>
+          <state>
+            Closed
+          </state>
+          <namespace>
+            FileSystem
+          </namespace>
+          <package>
+            FileSystemDemo
           </package>
           <version>
             1
@@ -602,39 +602,39 @@
     </record>
     <record>
       <key>
-        Process##Process.cpp#1
+        NoSqlDb##TestPersistence.h#2
       </key>
       <value>
         <metadata>
           <name>
-            Process.cpp
+            TestPersistence.h
           </name>
           <description>
-            Spawn new process
+            Implements the persistence layer of NoSqlDb
           </description>
           <datetime>
-            Tue May  1 01:04:13 2018
+            Tue May  1 16:38:04 2018
           </datetime>
         </metadata>
         <payload>
           <author>
-            jfawcett
+            rgnair
           </author>
           <state>
-            Open
+            Closed
           </state>
           <namespace>
-            Process
+            NoSqlDb
           </namespace>
           <package>
-            Process
+            Persistence
           </package>
           <version>
-            1
+            2
           </version>
           <categories>
             <category>
-              executives
+              nosqldb
             </category>
           </categories>
         </payload>
@@ -696,39 +696,39 @@
     </record>
     <record>
       <key>
-        NoSqlDb##TestPersistence.h#2
+        Process##Process.cpp#1
       </key>
       <value>
         <metadata>
           <name>
-            TestPersistence.h
+            Process.cpp
           </name>
           <description>
-            Implements the persistence layer of NoSqlDb
+            Spawn new process
           </description>
           <datetime>
-            Tue May  1 16:38:04 2018
+            Tue May  1 01:04:13 2018
           </datetime>
         </metadata>
         <payload>
           <author>
-            rgnair
+            jfawcett
           </author>
           <state>
-            Closed
+            Open
           </state>
           <namespace>
-            NoSqlDb
+            Process
           </namespace>
           <package>
-            Persistence
+            Process
           </package>
           <version>
-            2
+            1
           </version>
           <categories>
             <category>
-              nosqldb
+              executives
             </category>
           </categories>
         </payload>
@@ -736,18 +736,18 @@
     </record>
     <record>
       <key>
-        NoSqlDb##TestDbCore.h#1
+        NoSqlDb##DbCore.h#1
       </key>
       <value>
         <metadata>
           <name>
-            TestDbCore.h
+            DbCore.h
           </name>
           <description>
             Implements the core APIs of NoSqlDb
           </description>
           <datetime>
-            Tue May  1 16:18:36 2018
+            Tue May  1 16:18:35 2018
           </datetime>
         </metadata>
         <payload>
@@ -776,18 +776,18 @@
     </record>
     <record>
       <key>
-        NoSqlDb##DbCore.h#1
+        NoSqlDb##TestDbCore.h#1
       </key>
       <value>
         <metadata>
           <name>
-            DbCore.h
+            TestDbCore.h
           </name>
           <description>
             Implements the core APIs of NoSqlDb
           </description>
           <datetime>
-            Tue May  1 16:18:35 2018
+            Tue May  1 16:18:36 2018
           </datetime>
         </metadata>
         <payload>
@@ -856,46 +856,6 @@
     </record>
     <record>
       <key>
-        SoftwareRepository##RepoStore.cpp#1
-      </key>
-      <value>
-        <metadata>
-          <name>
-            RepoStore.cpp
-          </name>
-          <description>
-            Implements the storeage layer for repo
-          </description>
-          <datetime>
-            Tue May  1 16:21:23 2018
-          </datetime>
-        </metadata>
-        <payload>
-          <author>
-            rgnair
-          </author>
-          <state>
-            Open
-          </state>
-          <namespace>
-            SoftwareRepository
-          </namespace>
-          <package>
-            RepoStore
-          </package>
-          <version>
-            1
-          </version>
-          <categories>
-            <category>
-              repository
-            </category>
-          </categories>
-        </payload>
-      </value>
-    </record>
-    <record>
-      <key>
         NoSqlDb##DbCore.cpp#1
       </key>
       <value>
@@ -936,18 +896,18 @@
     </record>
     <record>
       <key>
-        NoSqlDb##TestPersistence.h#1
+        SoftwareRepository##RepoStore.cpp#1
       </key>
       <value>
         <metadata>
           <name>
-            TestPersistence.h
+            RepoStore.cpp
           </name>
           <description>
-            Implements persistence layer of NoSqlDb
+            Implements the storeage layer for repo
           </description>
           <datetime>
-            Tue May  1 16:19:09 2018
+            Tue May  1 16:21:23 2018
           </datetime>
         </metadata>
         <payload>
@@ -955,20 +915,20 @@
             rgnair
           </author>
           <state>
-            Closed
+            Open
           </state>
           <namespace>
-            NoSqlDb
+            SoftwareRepository
           </namespace>
           <package>
-            Persistence
+            RepoStore
           </package>
           <version>
             1
           </version>
           <categories>
             <category>
-              nosqldb
+              repository
             </category>
           </categories>
         </payload>
@@ -1003,6 +963,46 @@
               NoSqlDb##DbCore.cpp#1
             </childkey>
           </relationships>
+        </metadata>
+        <payload>
+          <author>
+            rgnair
+          </author>
+          <state>
+            Closed
+          </state>
+          <namespace>
+            NoSqlDb
+          </namespace>
+          <package>
+            Persistence
+          </package>
+          <version>
+            1
+          </version>
+          <categories>
+            <category>
+              nosqldb
+            </category>
+          </categories>
+        </payload>
+      </value>
+    </record>
+    <record>
+      <key>
+        NoSqlDb##TestPersistence.h#1
+      </key>
+      <value>
+        <metadata>
+          <name>
+            TestPersistence.h
+          </name>
+          <description>
+            Implements persistence layer of NoSqlDb
+          </description>
+          <datetime>
+            Tue May  1 16:19:09 2018
+          </datetime>
         </metadata>
         <payload>
           <author>
@@ -1310,27 +1310,19 @@
     </record>
     <record>
       <key>
-        NoSqlDb##Query.h#2
+        NoSqlDb##TestQuery.h#2
       </key>
       <value>
         <metadata>
           <name>
-            Query.h
+            TestQuery.h
           </name>
           <description>
             Implements the query APIs for NoSqlDb
           </description>
           <datetime>
-            Tue May  1 16:38:49 2018
+            Tue May  1 16:38:50 2018
           </datetime>
-          <relationships>
-            <childkey>
-              NoSqlDb##DbCore.h#1
-            </childkey>
-            <childkey>
-              NoSqlDb##DbCore.cpp#1
-            </childkey>
-          </relationships>
         </metadata>
         <payload>
           <author>
@@ -1358,19 +1350,27 @@
     </record>
     <record>
       <key>
-        NoSqlDb##TestQuery.h#2
+        NoSqlDb##Query.h#2
       </key>
       <value>
         <metadata>
           <name>
-            TestQuery.h
+            Query.h
           </name>
           <description>
             Implements the query APIs for NoSqlDb
           </description>
           <datetime>
-            Tue May  1 16:38:50 2018
+            Tue May  1 16:38:49 2018
           </datetime>
+          <relationships>
+            <childkey>
+              NoSqlDb##DbCore.h#1
+            </childkey>
+            <childkey>
+              NoSqlDb##DbCore.cpp#1
+            </childkey>
+          </relationships>
         </metadata>
         <payload>
           <author>

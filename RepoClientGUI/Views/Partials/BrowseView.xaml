@@ -37,6 +37,7 @@
                             <ControlTemplate>
                                 <TextBlock FontStyle="Italic" FontSize="14" Foreground="#0D47A1">
                                     - No files have been selected -
+                                    - The checkout option will be visible once files have been selected -
                                 </TextBlock>
                             </ControlTemplate>
                         </Setter.Value>
@@ -102,6 +103,8 @@
                 Style="{StaticResource regBtnStyle}"
                 Margin="5,5,0,5"
                 Click="SearchCategoryBtn_Click" />
+        <TextBlock Grid.Row="2" Grid.Column="2"
+                   Margin="120,5,0,5">(try: nosqldb, repository, snippets, utility)</TextBlock>
         <!-- /ROW 1 & 2 : Search Category -->
         
         <!-- ROW 3 & 4 : Repository Contents -->

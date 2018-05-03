@@ -59,6 +59,33 @@ namespace RepoClientGUI.Views.Partials
             InitializeComponent();
         }
 
+        // ----< performs tasks after a successful connection >--------------------
+
+        private void OnSuccessfulConnection()
+        {
+            this.Dispatcher.Invoke(() => {
+                RepoClientState state = (RepoClientState)this.DataContext;
+
+                // mark connected
+                state.ServerConnProps.Connected = true;
+
+                // set the correct connection message in status bar
+                string message = "Connected to server " +
+                    $"{state.ServerConnProps.ServerAddress}:{state.ServerConnProps.ServerPort} " +
+                    $"as user {state.ServerConnProps.UserId}";
+                state.ServerConnProps.StatusMsg = message;
+
+                // switch tabs
+                state.ActionTabsProps.ConnectTab.Selected = false;
+                state.ActionTabsProps.BrowseTab.Selected = true;
+
+                // disable connection text boxes
+                ServerAddressTextBox.IsEnabled = false;
+                ServerPortTextBox.IsEnabled = false;
+                UserIdTextBox.IsEnabled = false;
+            });
+        }
+
         // ----< starts the comm system and pings server on connect button click >--------------------
         private void ConnectToRepoBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -74,28 +101,7 @@ namespace RepoClientGUI.Views.Partials
             if (!state.ServerConnProps.Connected)
                 state.ServerCommService.Start(state.ServerConnProps.ServerAddress, state.ServerConnProps.ServerPort);
 
-            state.ServerCommService.Requests.Ping((PingResponse response) => {
-                // mark connected
-                state.ServerConnProps.Connected = true;
-
-                // set the correct connection message in status bar
-                string message = "Connected to server " +
-                    $"{state.ServerConnProps.ServerAddress}:{state.ServerConnProps.ServerPort} " +
-                    $"as user {state.ServerConnProps.UserId}";
-                state.ServerConnProps.StatusMsg = message;
-
-                // switch tabs
-                state.ActionTabsProps.ConnectTab.Selected = false;
-                state.ActionTabsProps.BrowseTab.Selected = true;
-
-                // disable connection text boxes
-                this.Dispatcher.Invoke(() => {
-                    ServerAddressTextBox.IsEnabled = false;
-                    ServerPortTextBox.IsEnabled = false;
-                    UserIdTextBox.IsEnabled = false;
-                });
-                
-            }, true);
+            state.ServerCommService.Requests.Ping((PingResponse response) => OnSuccessfulConnection(), true);
         }
 
         // ----< stops the comm system and pings server on connect button click >--------------------
@@ -118,7 +124,7 @@ namespace RepoClientGUI.Views.Partials
             if (!loaded_) // ensures that this block is executed only once
             {
                 loaded_ = true;
-                //DemoConnection();
+                DemoConnection();
             }
         }
 
@@ -137,12 +143,7 @@ namespace RepoClientGUI.Views.Partials
                 Console.WriteLine($"    > Server responded to ping requestId [{response.RequestId}] with status alive: {response.ServerActive}");
                 Console.WriteLine($"\n  Test Passed\n");
 
-                state.ServerConnProps.Connected = true;
-
-                string message = "Connected to server " +
-                    $"{state.ServerConnProps.ServerAddress}:{state.ServerConnProps.ServerPort} " +
-                    $"as user {state.ServerConnProps.UserId}";
-                state.ServerConnProps.StatusMsg = message;
+                OnSuccessfulConnection();
             }, true);
         }
     }

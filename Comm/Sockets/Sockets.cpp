@@ -157,6 +157,7 @@ bool Socket::send(size_t bytes, byte* buffer)
 {
   size_t bytesSent = 0, bytesLeft = bytes;
   byte* pBuf = buffer;
+  int blocks = 0;
   while (bytesLeft > 0)
   {
     bytesSent = ::send(socket_, pBuf, bytesLeft, 0);
@@ -164,7 +165,14 @@ bool Socket::send(size_t bytes, byte* buffer)
       return false;
     bytesLeft -= bytesSent;
     pBuf += bytesSent;
+    blocks++;
   }
+
+  if (blocks > 1)
+  {
+      std::cout << "    >> Sent: " << std::to_string(bytesSent) << "bytes. Blocks: " << std::to_string(blocks);
+  }
+
   return true;
 }
 //----< recv buffer >--------------------------------------------------------

@@ -123,6 +123,27 @@ namespace SoftwareRepository
         ResourceDescription description_;
         std::vector<std::string> dependencies_;
     };
+
+    /////////////////////////////////////////////////////////////////////
+    // DemoTestResultProcessor
+    // - collects package files from the search result
+
+    class DemoTestResultProcessor : public IBrowserResultProcessor<FileResource>
+    {
+    public:
+        std::vector<FileResource> getResources() { return resources_; }
+
+        virtual bool operator()(FileResource res, ResourceVersion version, Level level) override {
+            if (level == 0)
+            {
+                resources_.push_back(res);
+            }
+
+            return true;
+        };
+    private:
+        std::vector<FileResource> resources_;
+    };
 }
 
 #endif // !BROWSE_RESULT_PROCESSORS_H

@@ -96,7 +96,7 @@ namespace RepoClientGUI.Views.Partials
             if (!loaded_) // ensures that this block is executed only once
             {
                 loaded_ = true;
-                //DemoCheckIn();
+                DemoCheckIn();
             }
         }
 
@@ -117,23 +117,27 @@ namespace RepoClientGUI.Views.Partials
         private void DemoCheckIn()
         {
             RepoClientState state = (RepoClientState)this.DataContext;
-            state.CheckInProps.PackageFolder = "C:/User/NoSqlDb/DbCore";
-            state.CheckInProps.Namespace = "NoSqlDb";
-            state.CheckInProps.PackageDescription = "Provides core key-value db semantics";
+            state.CheckInProps.PackageFolder = "../Demo/Logger";
+            state.CheckInProps.PackageName = "Logger";
+            state.CheckInProps.Namespace = "Logger";
+            state.CheckInProps.PackageDescription = "Logger for C++ programs";
+            state.CheckInProps.Category = "logger";
 
-            //state.ServerCommService.Requests.PostCheckIn("NoSqlDb",
-            //    state.CheckInProps.Namespace,
-            //    state.CheckInProps.PackageDescription,
-            //    "Logger.h",
-            //    state.ServerConnProps.UserId,
-            //    (CheckInResponse response) => {
-            //        Console.WriteLine($"\n\n{new String('-', 60)}");
-            //        Console.WriteLine("  Demonstrating Requirement 3b - Check-In");
-            //        Console.WriteLine($"{new String('-', 60)}\n");
-            //        Console.WriteLine($"    > Check-In requestId [{response.RequestId}] succeeded");
-            //        Console.WriteLine($"    > Server responded to request with status success: {response.Success}");
-            //        Console.WriteLine($"\n  Test Passed\n");
-            //    }, true);
+            state.ServerCommService.Requests.PostCheckIn(
+                state.CheckInProps.PackageFolder,
+                state.CheckInProps.PackageName,
+                state.CheckInProps.Namespace,
+                state.CheckInProps.PackageDescription,
+                state.CheckInProps.Category,
+                state.ServerConnProps.UserId,
+                (CheckInResponse response) => {
+                    Console.WriteLine($"\n\n{new String('-', 60)}");
+                    Console.WriteLine("  Demonstrating Requirement 3b - Check-In");
+                    Console.WriteLine($"{new String('-', 60)}\n");
+                    Console.WriteLine($"    > Check-In requestId [{response.RequestId}] succeeded");
+                    Console.WriteLine($"    > Server responded to request with status success: {response.Success}");
+                    Console.WriteLine($"\n  Test Passed\n");
+                }, true);
         }
     }
 }
